@@ -10,9 +10,12 @@
 #error_reporting(0);
 error_reporting(E_ALL);
 
-define('VERSION', '0.1 Beta1');
+define('VERSION', '0.1.1');
 
 define('DOMAIN', 'zici.fr');
+
+// Serveur DNS pour la résolution/vérification du nom de domaine
+define('NS1', 'ns1.fdn.org');
 
 define('BIN_POSTMAP', '/usr/sbin/postmap');
 

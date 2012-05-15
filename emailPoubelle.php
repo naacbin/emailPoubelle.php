@@ -12,6 +12,22 @@
 
 include_once('./conf.php');
 
+function VerifMXemail($email)
+{
+	require_once 'Net/DNS.php';
+	$domaine=explode('@', $email);
+	$serveurDeNom=array(
+	   NS1
+	);
+	$resolver = new Net_DNS_Resolver();
+	$resolver->nameservers=$serveurDeNom;
+	$response = $resolver->query($domaine[1],'MX');
+	if ($response) {
+		return true;
+	} else {
+		return false;
+	}
+}
 function UpdateVirtualDB()
 {
 	echo exec(BIN_POSTMAP.' '.FICHIERALIAS,$output,$return);
@@ -52,6 +68,8 @@ if (isset($_REQUEST['Validemail'])) {
 	$email=strtolower($_REQUEST['email']);
 	if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect</div>';
+	} else if (! VerifMXemail($email)) {
+		echo '<div class="highlight-1">Erreur : Adresse email incorrect (2)</div>';
 	} else if (! preg_match('#^[\w.-]+$#',$alias)) {
 		echo '<div class="highlight-1">Erreur : email poubelle incorrect</div>';
 	} elseif (isset($_REQUEST['ajo'])) {
@@ -124,6 +142,8 @@ if (isset($_REQUEST['Validemail'])) {
 
 <p>Typiquement c'est un script à inclure dans une page entre les balises body</p>
 
+<p>Le script a besoin de la lib pear <a href='http://pear.php.net/package/Net_DNS' target='_blank'>Net_DNS</a></p>
+
 <p>Le script utilise les virtual_alias_maps de postfix. Connectez vous en root</p>
 <p style='background-color: #C8C8C8'>srv:~# vi /etc/postfix/main.cf <br />
 [...]<br />
@@ -136,7 +156,11 @@ srv:~# chown www-data /www/emailPoubelle/postfix/virtual.db<br /></p>
 <p>Assurez vous que l'exécutable /usr/sbin/postmap soit accessible par l'utilisateur www-data</p>
 
 <h2>Changelog</h2>
-<span>Version 0.1 Beta1</span>
+<span>Version 0.1.1</span>
+<ul>
+	<li>Vérification de l'adresse email par DNS (existance d'un MX)</li>
+</ul>
+<span>Version 0.1</span>
 <ul>
 	<li>Ajout/suppression d'un alias</li>
 	<li>Vérification des adresses emails inconnus par confirmation email</li>
