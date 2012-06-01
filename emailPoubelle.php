@@ -48,7 +48,7 @@ function SupprimerAlias($alias,$email)
 	UpdateVirtualDB();
 }
 
-echo '<h1>Email poubelle</h1>
+echo '<h1>Emails poubelle libre</h1>
 <p>Générer des emails poubelle sans contrainte de durée de vie. </p>';
 
 if (isset($_REQUEST['Validemail'])) {
@@ -130,40 +130,4 @@ if (isset($_REQUEST['Validemail'])) {
 <input class="button" type="submit" name="sup" value="Supprimer" /> la redirection poubelle
 </form>
 <p>Version <?= VERSION ?> - Créé par David Mercereau sous licence GNU GPL v3</p>
-
-<h1>En savoir plus...</h1>
-
-<p>Ce script est sous licence <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GPLv3</a>, vous pouvez donc le télécharger et l'installer sur une autre plateforme</p>
-
-<h2>Téléchargement</h2>
-<p>Télécharger les sources de ce script : <a href="http://www.zici.fr/emailPoubelle/emailPoubelle.php_src">emailPoubelle.php</a> & <a href="http://www.zici.fr/emailPoubelle/conf.php_src">conf.php</a></p>
-
-<h2>Installer</h2>
-
-<p>Typiquement c'est un script à inclure dans une page entre les balises body</p>
-
-<p>Le script a besoin de la lib pear <a href='http://pear.php.net/package/Net_DNS' target='_blank'>Net_DNS</a></p>
-
-<p>Le script utilise les virtual_alias_maps de postfix. Connectez vous en root</p>
-<p style='background-color: #C8C8C8'>srv:~# vi /etc/postfix/main.cf <br />
-[...]<br />
-	virtual_alias_maps = hash:/www/emailPoubelle/postfix/virtual<br />	
-srv:~# touch /www/emailPoubelle/postfix/virtual<br />
-srv:~# /usr/sbin/postmap /www/emailPoubelle/postfix/virtual<br />
-srv:~# chown www-data /www/emailPoubelle/postfix/virtual<br />
-srv:~# chown www-data /www/emailPoubelle/postfix/virtual.db<br /></p>
-
-<p>Assurez vous que l'exécutable /usr/sbin/postmap soit accessible par l'utilisateur www-data</p>
-
-<h2>Changelog</h2>
-<span>Version 0.1.1</span>
-<ul>
-	<li>Vérification de l'adresse email par DNS (existance d'un MX)</li>
-</ul>
-<span>Version 0.1</span>
-<ul>
-	<li>Ajout/suppression d'un alias</li>
-	<li>Vérification des adresses emails inconnus par confirmation email</li>
-	<li>Gestion des URL rewriting</li>
-	<li>Gestion des doublons</li>
-</ul>
+<p>Télécharger et utiliser ce script sur le site du projet <a target="_blank" href="http://forge.zici.fr/projects/emailpoubelle">emailPoubelle.php</a></p>
