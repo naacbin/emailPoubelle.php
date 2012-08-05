@@ -1,51 +1,56 @@
 <?php
 
 //-----------------------------------------------------------
-// Emeail Poubelle
+// Email Poubelle
 // Licence : GNU GPL v3 : http://www.gnu.org/licenses/gpl.html
 // Créateur : David Mercereau - david [.] mercereau [aro] zici [.] fr
 // Home : http://poubelle.zici.fr
-// Date : 02/2012
-// Version : 0.1
+// Date : 08/2012
+// Version : 0.2
 // Dépendance : Postifx
 //----------------------------------------------------------- 
 
 include_once('./conf.php');
 
-function VerifMXemail($email)
-{
-	require_once 'Net/DNS.php';
+# Init
+if (!is_writable(FICHIERALIAS)) {
+	exit('<div class="highlight-1">Erreur : le fichier d\'alias ('.FICHIERALIAS.') ne peut pas être écrit. Merci de contacter l\'administrateur</div>');
+}
+
+function VerifMXemail($email) {
+	require_once 'Net/DNS2.php';
 	$domaine=explode('@', $email);
-	$serveurDeNom=array(
-	   NS1
-	);
-	$resolver = new Net_DNS_Resolver();
-	$resolver->nameservers=$serveurDeNom;
-	$response = $resolver->query($domaine[1],'MX');
-	if ($response) {
+	$r = new Net_DNS2_Resolver(array('nameservers' => array(NS1, NS2)));
+	try {
+        $result = $r->query($domaine[1], 'MX');
+	} catch(Net_DNS2_Exception $e) {
+		return false;
+	}
+	if ($result->answer) {
 		return true;
 	} else {
 		return false;
 	}
 }
-function UpdateVirtualDB()
-{
+
+function UpdateVirtualDB() {
 	echo exec(BIN_POSTMAP.' '.FICHIERALIAS,$output,$return);
 }
-function AjouterAlias($alias,$email)
-{
+function AjouterAlias($alias,$email) {
 	$fichier=fopen(FICHIERALIAS,'a+'); 
 	fputs($fichier, $alias.'@'.DOMAIN.' '.$email."\n");
 	fclose($fichier);
 	UpdateVirtualDB();
 }
-
-function SupprimerAlias($alias,$email)
-{
+function SupprimerAlias($alias,$email) {
 	file_put_contents(FICHIERALIAS, preg_replace('#\n\#[0-9]+ '.$alias.'@'.DOMAIN.' '.$email.'#U', '', file_get_contents(FICHIERALIAS)/*, 1*/));
 	file_put_contents(FICHIERALIAS, preg_replace('#\n'.$alias.'@'.DOMAIN.' '.$email.'#U', '', file_get_contents(FICHIERALIAS)/*, 1*/));
 	# http://www.siteduzero.com/forum-83-542138-p1-supprimer-une-ligne-d-un-fichier-texte-avec-regex.html
 	UpdateVirtualDB();
+}
+
+if (DEBUG) {
+	echo '<div class="highlight-2">Debug activé</div>';
 }
 
 echo '<h1>Emails poubelle libre</h1>
@@ -72,11 +77,13 @@ if (isset($_REQUEST['Validemail'])) {
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect (2)</div>';
 	} else if (! preg_match('#^[\w.-]+$#',$alias)) {
 		echo '<div class="highlight-1">Erreur : email poubelle incorrect</div>';
+	} else if (in_array($alias, $aliasInterditListe)) {
+		echo '<div class="highlight-1">Erreur : email poubelle interdit</div>';
 	} elseif (isset($_REQUEST['ajo'])) {
 		if (preg_match('#\n'.$alias.'@'.DOMAIN.'#', file_get_contents(FICHIERALIAS)) || preg_match('#\n\#[0-9]+ '.$alias.'@'.DOMAIN.'#', file_get_contents(FICHIERALIAS))) {
 			echo '<div class="highlight-1">Erreur : cet email poubelle est déjà utilisé</div>';
 		} else {
-			if (preg_match('#@'.DOMAIN.' '.$email.'$#', file_get_contents(FICHIERALIAS))) {
+			if (preg_match('#\n[a-z0-9]+@'.DOMAIN.' '.$email.'#', file_get_contents(FICHIERALIAS))) {
 				AjouterAlias($alias,$email);
 				echo '<div class="highlight-3">Votre email poubelle <b>'.$alias.'@'.DOMAIN.' > '.$email.'</b> est maintenant actif</div>';
 			} else {
@@ -130,4 +137,4 @@ if (isset($_REQUEST['Validemail'])) {
 <input class="button" type="submit" name="sup" value="Supprimer" /> la redirection poubelle
 </form>
 <p>Version <?= VERSION ?> - Créé par David Mercereau sous licence GNU GPL v3</p>
-<p>Télécharger et utiliser ce script sur le site du projet <a target="_blank" href="http://forge.zici.fr/projects/emailpoubelle">emailPoubelle.php</a></p>
+<p>Télécharger et utiliser ce script sur le site du projet <a target="_blank" href="http://forge.zici.fr/p/emailpoubelle-php/">emailPoubelle.php</a></p>
