@@ -21,7 +21,7 @@
 		<div id="b">
 			<article>
 				<h1>Emails poubelle libre</h1>
-                <p>Générer des emails poubelle sans contrainte de durée de vie. </p>
+				<p>Générer des emails poubelle sans contrainte de durée de vie. </p>
 				<?php 
 				// Intégration dans votre site :
 				include('emailPoubelle.php'); 

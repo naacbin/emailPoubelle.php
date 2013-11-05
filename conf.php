@@ -7,39 +7,33 @@
 // Home : http://poubelle.zici.fr
 //----------------------------------------------------------- 
 
-//error_reporting(0);
 define('DEBUG', true);
 
+// Domain email (separe with ;)
+define('DOMAIN', 'exemple.com;zici.fr');
+#define('DOMAIN', 'exemple.com');
 
+// PDO stucture
+// Exemple pour MYSQL : 
+//      define('DB', 'mysql:host=127.0.0.1;dbname=baseMysql');
+//      define('DBUSER', 'utilisateurMysql');
+//      define('DBPASS', 'motdepassedefou');
+// Exemple pour Sqlite : 
+//      define('DB', 'sqlite:./data/emailPoubelle.sqlite');
+define('DB', 'mysql:host=localhost;dbname=c1_demo');
+#define('DB', 'sqlite:./database.sdb');
+define('DBUSER', 'c1_demo');
+define('DBPASS', 'sqdf2csd4rvn45548');
+define('DBTABLEPREFIX', 'ep_');
 
-
-// Domaine email
-define('DOMAIN', 'zici.fr');
-
-// Deux options : 
-// 		PLAIN : plaintext, pas de base, simple mais des fonctionnalités en moins
-//		DB : pdo usage
-define('BACKEND', 'DB');
-
-if (BACKEND == 'DB') {
-    // PDO stucture
-    // Exemple pour MYSQL : 
-    //      define('DB', 'mysql:host=127.0.0.1;dbname=baseMysql');
-    //      define('DBUSER', 'utilisateurMysql');
-    //      define('DBPASS', 'motdepassedefou');
-    // Exemple pour Sqlite : 
-    //      define('DB', 'sqlite:./data/emailPoubelle.sqlite');
-    define('DB', 'mysql:host=localhost;dbname=c1_demo');
-    #define('DB', 'sqlite:./database.sdb');
-    define('DBUSER', 'c1_demo');
-    define('DBPASS', 'sqdf2csd4rvn45548');
-}
+// writable for script
+define('DATA', './data');
 
 // Fichier d'alias postfix
-define('FICHIERALIAS', './data/virtual');
+define('FICHIERALIAS', DATA.'/virtual');
 define('BIN_POSTMAP', '/usr/sbin/postmap');
 
-define('URLPAGE', 'http://'.$_SERVER["SERVER_NAME"].'/'.$_SERVER["REQUEST_URI"]);
+define('URLPAGE', 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["SCRIPT_NAME"]);
 
 // A indiquer si vous utiliser les URL's rewriting
 // Exemple avec un htaccess
@@ -51,12 +45,9 @@ define('URLREWRITE_DEBUT', false);
 define('URLREWRITE_FIN', false);
 
 // - Email 
-// Sujet de l'email pour la confirmation
-define('EMAIL_SUJET_CONFIRME', '[EmailPoubelle] Confirmation alias ');
-// Sujet de l'email pour la liste des alias
-define('EMAIL_SUJET_LISTE', '[EmailPoubelle] Liste des alias ');
+define('EMAILTAGSUJET', '[EmailPoubelle]');
 // From de l'email
-define('EMAIL_FROM', '"NO REPLAY emailPoubelle" <emailpoubelle@exemple.com>');
+define('EMAILFROM', '"NO REPLAY emailPoubelle" <emailpoubelle@exemple.com>');
 
 // Alisas interdit : (regex ligne par ligne) - commenter pour désactiver
 define('ALIASDENY', './aliasdeny.txt');
@@ -72,5 +63,7 @@ if (CHECKMX) {
     define('NS1', 'ns1.fdn.org');
     define('NS2', '8.8.8.8');
 }
+
+define('CHECKUPDATE', true);
 
 ?>
