@@ -10,18 +10,21 @@
 // Depend : Postifx (postmap command) php-pdo
 //----------------------------------------------------------- 
 
-include_once('./conf.php');
-define('VERSION', '1.0');
+// @todo
+// 	form ergonomie
+// 	sqlite
+//	disable time	
 
 //////////////////
 // Init & check
 //////////////////
 
+define('VERSION', '1.0');
+
 if (DEBUG) {
     error_reporting(E_ALL);
     ini_set('display_errors', 'On');
-	echo '<div class="highlight-2">Debug activé</div>';
-    print_r($_REQUEST);
+	echo '<div class="highlight-2">Debug activé <br />'.print_r($_REQUEST).'</div>';
 }
 
 if (defined(DOMAIN)) {
@@ -74,197 +77,54 @@ $create = $dbco->query("CREATE TABLE IF NOT EXISTS ".DBTABLEPREFIX."alias (
 }
 
 //////////////////
-// Function 
-//////////////////
-
-// Verification des emails
-function VerifMXemail($email) {
-    if (CHECKMX) {
-    	$domaine=explode('@', $email);
-    	$r = new Net_DNS2_Resolver(array('nameservers' => array(NS1, NS2)));
-    	try {
-            $result = $r->query($domaine[1], 'MX');
-    	} catch(Net_DNS2_Exception $e) {
-    		return false;
-    	}
-    	if ($result->answer) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    } else {
-        return true;
-    }
-}
-
-// postmap command
-function UpdateVirtualDB() {
-	// @todo : créer le ficheir à partir de la base
-	//echo exec(BIN_POSTMAP.' '.FICHIERALIAS,$output,$return);
-}
-
-// add new alias
-function AjouterAlias($status, $alias,$email, $life, $comment) {
-	global $dbco;
-	$dateCreat=date('Y-m-d H:i:s');
-	if ($life == 0) {
-		$dateExpir=NULL;
-	} else {
-		$dateExpir=date('Y-m-d H:i:s', time()+$life);
-	}
-	$insertcmd = $dbco->prepare("INSERT INTO ".DBTABLEPREFIX."alias (status, alias, email, dateCreat, dateExpir, comment) 
-                					VALUES ($status, '$alias', '$email', '$dateCreat', '$dateExpir', '$comment')");
-	$insertcmd->execute();
-	if (!$insertcmd) {
-		echo '<div class="highlight-1">Erreur pendant l\'ajout dans la base. Merci de contacter l\'administrateur ';
-		if (DEBUG) {
-			print_r($dbco->errorInfo());
-		}
-		echo '</div>';
-	} else {
-		return $dbco->lastInsertId();
-	}
-	// @todo : a faire
-	UpdateVirtualDB();
-}
-
-// delete new alias
-function SupprimerAlias($alias,$email) {
-	// @todo : a faire
-	UpdateVirtualDB();
-}
-
-// update alias status
-function UpdateStatusAlias($id, $alias_full, $status) {
-	global $dbco;
-	try {
-		$updatecmd = $dbco->prepare("UPDATE ".DBTABLEPREFIX."alias SET status = $status WHERE id = $id AND alias = '$alias_full'");
-		$updatecmd->execute();
-	} catch ( PDOException $e ) {
-		echo "DB error :  ", $e->getMessage();
-		die();
-	}
-	UpdateVirtualDB();
-}
-
-// parse file for blacklist and aliasdeny
-function parseFileRegex($file, $chaine) {
-    $return=false;
-    $handle = fopen($file, 'r');
-    while (!feof($handle)) {
-        $buffer = fgets($handle);
-        $buffer = str_replace("\n", "", $buffer);
-        if ($buffer) {
-            if (!preg_match('/^(#|$|;)/', $buffer) && preg_match($buffer, $chaine)) {
-                $return=true;
-                break;
-            }
-        }
-    }
-    fclose($handle);
-    return $return;
-}
-
-// Check blacklistemail
-function BlacklistEmail($email) {
-    if (defined('BLACKLIST')) {
-        return parseFileRegex(BLACKLIST, $email);
-    } else {
-        return false;
-    }
-}
-
-// check aliasdeny
-function AliasDeny($alias) {
-    if (defined('ALIASDENY')) {
-        return parseFileRegex(ALIASDENY, $alias);
-    } else {
-        return false;
-    }
-}
-
-//// A FAIRE :
-
-// list alias 
-function ListeAlias($email) {
-	// @todo : a faire
-    return ($alias);
-}
-
-function SendEmail($recipient, $sujet, $message) {
-	$header = 'From: '.EMAILFROM.'\n';
-	$header.= 'MIME-Version: 1.0\n';
-	if (preg_match('#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#', $recipient)) {
-		$header = str_replace('\n', '\r\n', $header);
-		$message = str_replace('\n', '\r\n', $header);
-	}
-	mail($recipient,EMAILTAGSUJET.' '.$sujet,$message,$header);
-}
-
-function urlGen($act,$id,$alias_full) {
-	$idUrl=base64_encode($id.';'.$alias_full);
-	if (URLREWRITE_DEBUT && URLREWRITE_FIN) {
-		return URLREWRITE_DEBUT.$idUrl.URLREWRITE_FIN;
-	} else {
-		return URLPAGE."?act=".$act."&value=".$idUrl;
-	}
-}
-
-//////////////////
-// Admin function
-//////////////////
-
-function CheckUpdate() {
-	//$doc = file_get_contents('http://poubelle.zici.fr/ep_checkupdate');
-	//echo $doc;
-}
-
-//////////////////
 // Start program
 //////////////////
 
-// Valid email process
-if (isset($_GET['act']) && $_GET['act'] == 'validemail' && isset($_GET['value'])) {
-	$idUrl = explode(';', base64_decode($_GET['value']));
-	echo $dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE id = '".$idUrl[0]."' AND status = 0")->fetchColumn();
-	if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE id = '".$idUrl[0]."' AND status = 0")->fetchColumn() != 0) {
-		UpdateStatusAlias($idUrl[0], $idUrl[1], 5);
-		echo '<div class="highlight-3">Votre email poubelle <b>'.$idUrl[1].'</b> est maintenant actif</div>';
-	} else {
-		echo '<div class="highlight-1">Erreur : ID introuvable ou déjà validé</div>';
-	}
-} elseif (isset($_GET['dis'])) {
-	// @todo fa faire
-} elseif (isset($_GET['del'])) {
-	// @todo fa faire
-// list email process
-} elseif (isset($_GET['list'])) {
-    $email=strtolower($_REQUEST['email']);
-    if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+// get process act
+$action = isset($_GET['act']) ? $_GET['act'] : '';
+switch ($action) {
+	case "validemail" :
+		$get_value = urlUnGen($_GET['value']);
+		echo $dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE id = '".$get_value['id']."' AND status = 0")->fetchColumn();
+		if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE id = '".$get_value['id']."' AND status = 0")->fetchColumn() != 0) {
+			UpdateStatusAlias($get_value['id'], $get_value['alias_full'], 5);
+			echo '<div class="highlight-3">Votre email poubelle <b>'.$get_value['alias_full'].'</b> est maintenant actif</div>';
+		} else {
+			echo '<div class="highlight-1">Erreur : ID introuvable ou déjà validé</div>';
+		}
+	break;
+	case "disable" :
+		$get_value = urlUnGen($_GET['value']);
+		DisableAlias($get_value['id'], $get_value['alias_full'], null);
+	break;
+	case "enable" :
+		$get_value = urlUnGen($_GET['value']);
+		EnableAlias($get_value['id'], $get_value['alias_full'], null);
+	break;
+	case "delete" :
+		$get_value = urlUnGen($_GET['value']);
+		DeleteAlias($get_value['id'], $get_value['alias_full']);
+	break;
+}
+// Form
+if (isset($_POST['list'])) {
+	$email=strtolower($_POST['email']);
+	if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect</div>';
 	} else if (! VerifMXemail($email)) {
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect (2)</div>';
-    } else if (!preg_match('#\n[a-z0-9]+@'.DOMAIN.' '.$email.'#', file_get_contents(FICHIERALIAS))) {
-        echo '<div class="highlight-1">Vous n\'avez encore aucun alias d\'actif</div>';
-     } else {
-        $header = 'From: '.EMAIL_FROM.'\n';
-        $header.= 'MIME-Version: 1.0\n';
-        $message= 'Liste de vos redirections poubelles : \n';
-        foreach (ListeAlias($email) as $alias) {
-            $message.=' * '.$alias.'\n';
-        }
-        $message.= 'Pour supprimer un email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n';
-        $message.= "\t * ".URLPAGE.'\n';
-        SendEmail($email,'Liste des alias',$message);
-        echo '<div class="highlight-3">Un email vous a été adressé avec la liste de vos emails poubelles actifs.</div>';
-    }
-// Form
-} elseif (isset($_POST['email']) && isset($_POST['alias'])) {
+	} else if (ListeAlias($email)) {
+		echo '<div class="highlight-3">Un email vient de vous être envoyé</div>';
+	} else {
+		echo '<div class="highlight-1">Erreur : aucun email actif connu</div>';
+	}
+} else if (isset($_POST['email']) && isset($_POST['alias'])) {
 	$alias=strtolower($_POST['alias']);
 	$email=strtolower($_POST['email']);
 	$domain=$_POST['domain'];
 	$life=$_POST['life'];
 	$comment=$_POST['comment'];
+	$alias_full=$alias.'@'.$domain;
 	// Check form
 	if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect</div>';
@@ -276,53 +136,54 @@ if (isset($_GET['act']) && $_GET['act'] == 'validemail' && isset($_GET['value'])
 		echo '<div class="highlight-1">Erreur : ce domain n\'est pas pris en charge</div>';
 	} else if (AliasDeny($alias)) {
 		echo '<div class="highlight-1">Erreur : email poubelle interdit</div>';
-    } else if (BlacklistEmail($email)) {
-        echo '<div class="highlight-1">Erreur : vous avez été blacklisté sur ce service</div>';
+	} else if (BlacklistEmail($email)) {
+		echo '<div class="highlight-1">Erreur : vous avez été blacklisté sur ce service</div>';
 	// add 
 	} elseif (isset($_POST['add'])) {
-        if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE alias = '".$alias.'@'.$domain."'")->fetchColumn() != 0) {
+		if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE alias = '".$alias_full."'")->fetchColumn() != 0) {
 			echo '<div class="highlight-1">Erreur : cet email poubelle est déjà utilisé</div>';
 		} else {
-			if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE email = '".$email."' AND status = 5")->fetchColumn() != 0) {
-				AjouterAlias(5, $alias.'@'.$domain, $email, $life, $comment);
-				echo '<div class="highlight-3">Votre email poubelle <b>'.$alias.'@'.$domain.' > '.$email.'</b> est maintenant actif</div>';
+			if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE email = '".$email."' AND status > 0")->fetchColumn() != 0) {
+				AjouterAlias(5, $alias_full, $email, $life, $comment);
+				echo '<div class="highlight-3">Votre email poubelle <b>'.$alias_full.' > '.$email.'</b> est maintenant actif</div>';
 			} else {
-				$lastId=AjouterAlias(0, $alias.'@'.$domain, $email, $life, $comment);
+				$lastId=AjouterAlias(0, $alias_full, $email, $life, $comment);
 				$message= "Confirmation de la création de votre redirection email poubelle : ";
-				$message= $alias.'@'.$domain.' => '.$email."\n";
+				$message= $alias_full.' => '.$email."\n";
 				$message= "Cliquer sur le lien ci-dessous pour confirmer : \n";
-				$message.= "\t * ".urlGen('validemail',$lastId,$alias.'@'.$domain)."\n";
-				$message.= "Pour suspendre temporairement cet email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n";
-				$message.= "\t * ".urlGen('dis',$lastId,$alias.'@'.$domain)."\n";
+				$message.= "\t * ".urlGen('validemail',$lastId,$alias_full)."\n";
 				$message.= "Pour supprimer cet email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n";
-				$message.= "\t * ".urlGen('del',$lastId,$alias.'@'.$domain)."\n";
+				$message.= "\t * ".urlGen('del',$lastId,$alias_full)."\n";
+				$message.= "\n";
+				$message.= "Après confirmation, vous pourez suspendre temporairement cet email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n";
+				$message.= "\t * ".urlGen('disable',$lastId,$alias_full)."\n";
 				SendEmail($email,'Confirmation alias '.$alias,$message);
 				echo '<div class="highlight-2">Votre email ('.$email.') nous étant inconnu, une confirmation vous a été envoyé par email.</div>';
 			}
 		}
 	// delete
 	} else if (isset($_POST['del'])) {
-		if ($id = $dbco->query("SELECT id FROM ".DBTABLEPREFIX."alias WHERE email = '".$email."' AND alias = '".$alias.'@'.$domain."'")->fetchColumn()) {
+		if ($id = $dbco->query("SELECT id FROM ".DBTABLEPREFIX."alias WHERE email = '".$email."' AND alias = '".$alias_full."'")->fetchColumn()) {
 			$message= "Confirmation de la création de votre redirection email poubelle : ";
-			$message= $alias.'@'.$domain.' => '.$email."\n";
+			$message= $alias_full.' => '.$email."\n";
 			$message= "Cliquer sur le lien ci-dessous pour confirmer la suppression : \n";
-			$message.= "\t * ".urlGen('del',$id,$alias.'@'.$domain)."\n\n";
+			$message.= "\t * ".urlGen('del',$id,$alias_full)."\n\n";
 			$message.= "Sinon pour suspendre temporairement cet email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n";
-			$message.= "\t * ".urlGen('dis',$id,$alias.'@'.$domain)."\n";
+			$message.= "\t * ".urlGen('disable',$id,$alias_full)."\n";
 			SendEmail($email,'Suppression de l\'alias '.$alias,$message);
 			echo '<div class="highlight-2">Un email de confirmation vient de vous être envoyé.</div>';
 		} else {
 			echo '<div class="highlight-1">Erreur : impossible de trouver cet email poubelle</div>';
 		}
 	// disable
-	} else if (isset($_POST['dis'])) {
-		// @todo a faire
-		if ($return=DisableAlias($alias.'@'.$domain,$email)) {
-			echo '<div class="highlight-3">Votre email poubelle <b>'.$alias.'@'.$domain.'</b> est maintenant suspendu !</div>';
-		} else {
-			echo '<div class="highlight-1">Erreur : '.$return.'</div>';
-		}
+	} else if (isset($_POST['disable'])) {
+		DisableAlias(null, $alias_full, $email);
+	// enable
+	} else if (isset($_POST['enable'])) {
+		EnableAlias(null, $alias_full, $email);
 	}
+
+	// memory email
 	if (isset($_POST['memory'])) {
 		setcookie ("email", $email, time() + 31536000);
 	} else if (isset($_COOKIE['email'])) {
@@ -376,10 +237,12 @@ $dbco = null;
 </div>
 <div id="form-submit">
 	<input class="button" type="submit" id="button-add" name="add" value="Activer" /> -
-	<input class="button" type="submit" id="button-dis" name="dis" value="Susprendre" /> -
+	<input class="button" type="submit" id="button-disable" name="disable" value="Susprendre" /> -
+	<input class="button" type="submit" id="button-enable" name="enable" value="Reprendre" /> -
 	<input class="button" type="submit" id="button-del" name="del" value="Supprimer" />
 </div>
 </form>
+
 <script type="text/javascript">
 	function validateEmail(email) { 
 		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -393,7 +256,7 @@ $dbco = null;
 			document.getElementById('input-domain').disabled = false; 
 			document.getElementById('button-list').disabled = false; 
 			document.getElementById('button-add').disabled = false; 
-			document.getElementById('button-dis').disabled = false; 
+			document.getElementById('button-disable').disabled = false; 
 			document.getElementById('button-del').disabled = false; 
 			document.getElementById('input-life').disabled = false; 
 			document.getElementById('form-comment').style.display = "block" ;
@@ -405,7 +268,7 @@ $dbco = null;
 			document.getElementById('input-life').disabled = false;
 			document.getElementById('form-comment').style.display = "display" ;
 			document.getElementById('button-add').disabled = true; 
-			document.getElementById('button-dis').disabled = true; 
+			document.getElementById('button-disable').disabled = true; 
 			document.getElementById('button-del').disabled = true; 
 			document.getElementById('input-life').disabled = true;
 			document.getElementById('form-comment').style.display = "none" ;
@@ -415,7 +278,7 @@ $dbco = null;
 			document.getElementById('input-domain').disabled = true; 
 			document.getElementById('button-list').disabled = true; 
 			document.getElementById('button-add').disabled = true; 
-			document.getElementById('button-dis').disabled = true; 
+			document.getElementById('button-disable').disabled = true; 
 			document.getElementById('button-del').disabled = true; 
 			document.getElementById('input-life').disabled = true;
 			document.getElementById('form-comment').style.display = "none" ;
@@ -425,3 +288,5 @@ $dbco = null;
 </script>
 <p>Version <?= VERSION ?> - Créé par David Mercereau sous licence GNU GPL v3</p>
 <p>Télécharger et utiliser ce script sur le site du projet <a target="_blank" href="http://forge.zici.fr/p/emailpoubelle-php/">emailPoubelle.php</a></p>
+
+<?php echo '<p>Upgrade note : '.CheckUpdate().'</p>'; ?>

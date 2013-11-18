@@ -1,2 +1,5 @@
 /postfix
-/data
+virtual
+virtual.db
+checkupdate
+test*

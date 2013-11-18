@@ -32,3 +32,8 @@ Configurer Postfix :
     /usr/sbin/postmap /www/emailPoubelle/postfix/virtual
     chown www-data /www/emailPoubelle/postfix/virtual
     chown www-data /www/emailPoubelle/postfix/virtual.db
+
+Ajouter dans le fichier /etc/alias le devnull
+
+	echo "devnull:	/dev/null" >> /etc/aliases
+	newaliases

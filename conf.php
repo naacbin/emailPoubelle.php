@@ -7,6 +7,15 @@
 // Home : http://poubelle.zici.fr
 //----------------------------------------------------------- 
 
+// writable for script
+define('DATA', '../var');
+// include directory
+define('INC', '../lib');
+
+// include function
+include_once(INC.'/ep_function.php');
+include_once(INC.'/ep_admin.php');
+
 define('DEBUG', true);
 
 // Domain email (separe with ;)
@@ -26,8 +35,7 @@ define('DBUSER', 'c1_demo');
 define('DBPASS', 'sqdf2csd4rvn45548');
 define('DBTABLEPREFIX', 'ep_');
 
-// writable for script
-define('DATA', './data');
+
 
 // Fichier d'alias postfix
 define('FICHIERALIAS', DATA.'/virtual');
@@ -48,12 +56,13 @@ define('URLREWRITE_FIN', false);
 define('EMAILTAGSUJET', '[EmailPoubelle]');
 // From de l'email
 define('EMAILFROM', '"NO REPLAY emailPoubelle" <emailpoubelle@exemple.com>');
+define('EMAILEND', 'emailPoubelle.zici.fr');
 
 // Alisas interdit : (regex ligne par ligne) - commenter pour désactiver
-define('ALIASDENY', './aliasdeny.txt');
+define('ALIASDENY', DATA.'/aliasdeny.txt');
 
 // Blackliste d'email : (regex ligne par ligne) - commenter pour désactiver
-define('BLACKLIST', './blacklist.txt');
+define('BLACKLIST', DATA.'/blacklist.txt');
 
 // Depend pear Net/DNS2
 define('CHECKMX', false);
@@ -64,6 +73,11 @@ if (CHECKMX) {
     define('NS2', '8.8.8.8');
 }
 
-define('CHECKUPDATE', true);
+// check update :
+// 		enable : in seconds
+//		disable : false
+define('CHECKUPDATE', 300);
+
+
 
 ?>
