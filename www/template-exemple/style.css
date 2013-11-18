@@ -430,3 +430,10 @@ footer {
 			font-size : 10px;
 			margin : 0;
 		}
+
+.open {
+	color : #CCC;
+}
+.close {
+	color : #0A647C;
+}

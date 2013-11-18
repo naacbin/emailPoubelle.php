@@ -293,7 +293,7 @@ function CheckUpdate() {
 		} 
 		$file_current_version = trim(file_get_contents(DATA.'/checkupdate'));
 		if ($file_current_version != '' && $file_current_version != VERSION) {
-			return 'Votre version est en '.VERSION.' alors que la version en cours est en '.$file_current_version;
+			return '<p>Upgrade note : Votre version est en '.VERSION.' alors que la version en cours est en '.$file_current_version.'</p>';
 		} else {
 			return false;
 		}

@@ -24,7 +24,9 @@ define('VERSION', '1.0');
 if (DEBUG) {
     error_reporting(E_ALL);
     ini_set('display_errors', 'On');
-	echo '<div class="highlight-2">Debug activé <br />'.print_r($_REQUEST).'</div>';
+	echo '<div class="highlight-2">Debug activé <br />';
+	echo print_r($_REQUEST);
+	echo '</div>';
 }
 
 if (defined(DOMAIN)) {
@@ -107,7 +109,9 @@ switch ($action) {
 	break;
 }
 // Form
-if (isset($_POST['list'])) {
+if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spam 
+	echo 'Hello you';
+} else if (isset($_POST['list'])) {
 	$email=strtolower($_POST['email']);
 	if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect</div>';
@@ -200,6 +204,14 @@ $dbco = null;
 ?>
 
 <form action="<?= URLPAGE?>" method="post">
+<div id="onglet" style="display: none;">
+	<input type="button" value="Ajouter" id="onglet-add" onClick="ongletChange(this.id)" /> 
+	<input type="button" id="onglet-list" value="Lister" onClick="ongletChange(this.id)" /> 
+	<input type="button" id="onglet-del" value="Supprimer" onClick="ongletChange(this.id)" /> 
+	<input type="button" id="onglet-dis" value="Suspendre" onClick="ongletChange(this.id)" />
+	<input type="button" id="onglet-en" value="Reprendre" onClick="ongletChange(this.id)" />
+	<input type="hidden" name="onglet-actif" id="onglet-actif" value="onglet-add" />
+</div>
 <div id="form-email">
 	<label for="email">Votre email réel : </label>
 	<input type="text" name="email" <?php if (isset($_COOKIE['email'])) { echo 'value="'.$_COOKIE['email'].'"'; } ?> id="input-email" size="24" border="0"  onkeyup="printForm()" onchange="printForm()"  /> 
@@ -236,10 +248,13 @@ $dbco = null;
 	<input type="text" name="comment" size="54" placeholder="Ex : Inscription sur zici.fr" />
 </div>
 <div id="form-submit">
-	<input class="button" type="submit" id="button-add" name="add" value="Activer" /> -
-	<input class="button" type="submit" id="button-disable" name="disable" value="Susprendre" /> -
-	<input class="button" type="submit" id="button-enable" name="enable" value="Reprendre" /> -
+	<input class="button" type="submit" id="button-add" name="add" value="Activer" />
 	<input class="button" type="submit" id="button-del" name="del" value="Supprimer" />
+	<input class="button" type="submit" id="button-enable" name="enable" value="Reprendre" />
+	<input class="button" type="submit" id="button-disable" name="disable" value="Susprendre" />
+</div>
+<div id="lePecheur" style="display: none;">
+	<input name="username" type="text" />
 </div>
 </form>
 
@@ -257,9 +272,12 @@ $dbco = null;
 			document.getElementById('button-list').disabled = false; 
 			document.getElementById('button-add').disabled = false; 
 			document.getElementById('button-disable').disabled = false; 
+			document.getElementById('button-enable').disabled = false; 
 			document.getElementById('button-del').disabled = false; 
 			document.getElementById('input-life').disabled = false; 
-			document.getElementById('form-comment').style.display = "block" ;
+			if (document.getElementById('onglet-actif').value == 'onglet-add') {
+				document.getElementById('form-comment').style.display = "block" ;
+			}
 		} else if (validateEmail(document.getElementById('input-email').value)) {
 			console.log("email ok");
 			document.getElementById('input-alias').disabled = false; 
@@ -269,6 +287,7 @@ $dbco = null;
 			document.getElementById('form-comment').style.display = "display" ;
 			document.getElementById('button-add').disabled = true; 
 			document.getElementById('button-disable').disabled = true; 
+			document.getElementById('button-enable').disabled = true; 
 			document.getElementById('button-del').disabled = true; 
 			document.getElementById('input-life').disabled = true;
 			document.getElementById('form-comment').style.display = "none" ;
@@ -279,14 +298,52 @@ $dbco = null;
 			document.getElementById('button-list').disabled = true; 
 			document.getElementById('button-add').disabled = true; 
 			document.getElementById('button-disable').disabled = true; 
+			document.getElementById('button-enable').disabled = true; 
 			document.getElementById('button-del').disabled = true; 
 			document.getElementById('input-life').disabled = true;
 			document.getElementById('form-comment').style.display = "none" ;
 		}
 	}
+	function ongletPrint() {
+		var ongletActif = document.getElementById('onglet-actif').value;
+		console.log(ongletActif);
+		document.getElementById('onglet-add').className = "close" ;
+		document.getElementById('onglet-del').className = "close" ;
+		document.getElementById('onglet-list').className = "close" ;
+		document.getElementById('onglet-en').className = "close" ;
+		document.getElementById('onglet-dis').className = "close" ;
+		document.getElementById(ongletActif).className = "open" ;
+		document.getElementById('input-life').style.display = "none" ;
+		document.getElementById('form-alias').style.display = "inline-block" ;
+		document.getElementById('button-add').style.display = "none" ;
+		document.getElementById('button-del').style.display = "none" ;
+		document.getElementById('button-list').style.display = "none" ;
+		document.getElementById('button-disable').style.display = "none" ;
+		document.getElementById('button-enable').style.display = "none" ;
+		if (ongletActif == 'onglet-add') {
+			document.getElementById('button-add').style.display = "inline-block" ;
+			document.getElementById('input-life').style.display = "inline-block" ;
+		} else if (ongletActif == 'onglet-del') {
+			document.getElementById('button-del').style.display = "inline-block" ;
+		} else if (ongletActif == 'onglet-en') {
+			document.getElementById('button-enable').style.display = "inline-block" ;
+		} else if (ongletActif == 'onglet-dis') {
+			document.getElementById('button-disable').style.display = "inline-block" ;
+		} else if (ongletActif == 'onglet-list') {
+			document.getElementById('button-list').style.display = "inline-block" ;
+			document.getElementById('form-alias').style.display = "none" ;
+		}
+	}
+	function ongletChange(ongletValue) {
+		console.log(ongletValue);
+		document.getElementById('onglet-actif').value = ongletValue;
+		ongletPrint();
+	}
+	document.getElementById('onglet').style.display = "block" ;
+	ongletPrint();
 	printForm();
 </script>
 <p>Version <?= VERSION ?> - Créé par David Mercereau sous licence GNU GPL v3</p>
 <p>Télécharger et utiliser ce script sur le site du projet <a target="_blank" href="http://forge.zici.fr/p/emailpoubelle-php/">emailPoubelle.php</a></p>
 
-<?php echo '<p>Upgrade note : '.CheckUpdate().'</p>'; ?>
+<?php echo CheckUpdate(); ?>
