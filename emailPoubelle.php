@@ -375,15 +375,3 @@ if (!CRON) { LifeExpire(); }
 echo CheckUpdate(); 
 } // end maintenance mod
 ?>
-
-<link href="http://cdn.wijmo.com/themes/rocket/jquery-wijmo.css" rel="stylesheet" type="text/css" />
-<link href="http://cdn.wijmo.com/jquery.wijmo-open.1.1.5.css" rel="stylesheet" type="text/css" />
-<link href="http://cdn.wijmo.com/jquery.wijmo-complete.1.1.5.css" rel="stylesheet" type="text/css" />
-<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.5.1.min.js" type="text/javascript"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.11/jquery-ui.min.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/external/jquery.bgiframe-2.1.3-pre.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/external/jquery.glob.min.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/external/jquery.mousewheel.min.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/external/raphael-min.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/jquery.wijmo-open.1.1.5.min.js" type="text/javascript"></script>
-<script src="http://cdn.wijmo.com/jquery.wijmo-complete.1.1.5.min.js" type="text/javascript"></script>
