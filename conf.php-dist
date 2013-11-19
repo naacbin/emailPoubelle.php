@@ -78,8 +78,8 @@ define('URLREWRITE_FIN', false);
 define('CHECKUPDATE', 86400);
 
 // Maintenance mode 
-define('MAINTENANCE_MODE', true);
+define('MAINTENANCE_MODE', false);
 // No maintenance for this ip (admin ip)
-define('MAINTENANCE_IP', '109.190.147.116');
+define('MAINTENANCE_IP', '10.0.0.1');
 
 ?>
