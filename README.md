@@ -22,8 +22,6 @@ Télécharger & décompresser les sources :
     wget -O emailPoubelle.zip http://forge.zici.fr/p/emailpoubelle-php/source/download/master/
     unzip emailPoubelle.zip
     cp emailpoubelle-php-master/* /var/www/emailPoubelle
-    cd /var/www/emailPoubelle/
-    mv conf.php-dist conf.php
 
 Configure apache virtualhost
 	[...]

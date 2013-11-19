@@ -24,7 +24,11 @@
 				<p>Générer des emails poubelle sans contrainte de durée de vie. </p>
 				<?php 
 				// Intégration dans votre site :
-				include('../conf.php');
+				if (file_exists('../conf.php')) {
+					include('../conf.php');
+				} else {
+					include('../conf-dist.php');
+				}
 				include('../emailPoubelle.php'); 
 				?>
 				<h3>Let the Show Begin - Pre and Code</h3>
