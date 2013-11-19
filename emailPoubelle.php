@@ -29,24 +29,27 @@ if (DEBUG) {
 	echo '</div>';
 }
 
-if (defined(DOMAIN)) {
-	exit('<div class="highlight-1">Erreur : Problème de configuration</div>');
-}
+if (!defined('DOMAIN') || !defined('DATA') || !defined('DEBUG') || !defined('FICHIERALIAS') || !defined('DB')) {
+	echo '<div class="highlight-1">Erreur : Il ne semble pas que le fichier de configuration conf.php soit inclue car les constantes ne sont pas présentes.</div>';
 // check writable work directory
-if (!is_writable(DATA)) {
-	exit('<div class="highlight-1">Erreur : le répertoire de travail ne peut pas être écrit. Merci de contacter l\'administrateur</div>');
-}
+} else if (!is_writable(DATA)) {
+	echo '<div class="highlight-1">Erreur : le répertoire de travail ne peut pas être écrit. Merci de contacter l\'administrateur</div>';
 // check alias file is_writable 
-if (!is_writable(FICHIERALIAS)) {
-	exit('<div class="highlight-1">Erreur : le fichier d\'alias ne peut pas être écrit. Merci de contacter l\'administrateur</div>');
-}
+} else if (!is_writable(FICHIERALIAS)) {
+	echo '<div class="highlight-1">Erreur : le fichier d\'alias ne peut pas être écrit. Merci de contacter l\'administrateur</div>';
 // check blacklist file is_writable
-if (defined('BLACKLIST') && !is_readable(BLACKLIST)) {
-    exit('<div class="highlight-1">Erreur : un fichier de blacklist est renseigné mais n\'est pas lisible. Merci de contacter l\'administrateur</div>');
-}
+} else if (defined('BLACKLIST') && !is_readable(BLACKLIST)) {
+    echo '<div class="highlight-1">Erreur : un fichier de blacklist est renseigné mais n\'est pas lisible. Merci de contacter l\'administrateur</div>';
 // check aliasdeny file is_writable
-if (defined('ALIASDENY') && !is_readable(ALIASDENY)) {
-    exit('<div class="highlight-1">Erreur : un fichier d\'alias interdit est renseigné mais n\'est pas lisible. Merci de contacter l\'administrateur</div>');
+} else if (defined('ALIASDENY') && !is_readable(ALIASDENY)) {
+    echo '<div class="highlight-1">Erreur : un fichier d\'alias interdit est renseigné mais n\'est pas lisible. Merci de contacter l\'administrateur</div>';
+// maintenance mod
+} else if (MAINTENANCE_MODE == true && MAINTENANCE_IP != $_SERVER["REMOTE_ADDR"]) {
+	echo '<div class="highlight-2">Le service est en maintenance.</div>';
+} else {
+
+if (MAINTENANCE_MODE == true) {
+	echo '<div class="highlight-2">Le service est en maintenance.</div>';
 }
 
 // Connect DB
@@ -355,6 +358,9 @@ $dbco = null;
 <p>Télécharger et utiliser ce script sur le site du projet <a target="_blank" href="http://forge.zici.fr/p/emailpoubelle-php/">emailPoubelle.php</a></p>
 
 <?php 
-LifeExpire();
+// execute lifeExpir if isn't in crontab
+if (!CRON) { LifeExpire(); }
+// checkupdate
 echo CheckUpdate(); 
+} // end maintenance mod
 ?>

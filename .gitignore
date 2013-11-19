@@ -2,4 +2,5 @@
 virtual
 virtual.db
 checkupdate
+conf.php
 test*
