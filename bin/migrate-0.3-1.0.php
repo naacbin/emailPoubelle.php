@@ -1,6 +1,8 @@
 #!/usr/bin/php
 <?php
-include('./conf.php');
+include('../conf.php');
+
+# pour migrer du plain-text vers la base de donnée
 
 // Connect DB
 try {
@@ -15,7 +17,7 @@ try {
 }
 
 // postmap command
-function UpdateVirtualDB() {
+function UpdateVirtualDB_migrateTo10() {
 	global $dbco;
 	try {
 		$selectcmd = $dbco->prepare("SELECT alias, email
@@ -39,7 +41,7 @@ function UpdateVirtualDB() {
 
 
 // add new alias
-function AjouterAlias($status, $alias,$email, $life, $comment) {
+function AjouterAlias_migrateTo10($status, $alias,$email, $life, $comment) {
 	global $dbco;
 	$dateCreat=date('Y-m-d H:i:s', 0);
 	$dateExpir=NULL;
@@ -67,12 +69,12 @@ while (!feof($handle)) {
 		$bufferExplode = explode(' ', $buffer);
 		if (!preg_match('/^(#|$|;)/', $buffer)) {
 			echo $bufferExplode[0].' -> '.$bufferExplode[1]."\n";
-			AjouterAlias(5, trim($bufferExplode[0]), trim($bufferExplode[1]), null, null);
+			AjouterAlias_migrateTo10(5, trim($bufferExplode[0]), trim($bufferExplode[1]), null, null);
 		}
 	}
 }
 fclose($handle);
 
-UpdateVirtualDB();
+UpdateVirtualDB_migrateTo10();
 
 ?>

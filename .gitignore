@@ -4,3 +4,4 @@ virtual.db
 checkupdate
 conf.php
 test*
+var/database.sdb

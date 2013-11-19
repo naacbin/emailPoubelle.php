@@ -65,15 +65,26 @@ try {
 }
 // Create DB if not exists
 try {
-// status : 0=not verified - 3=disable - 5=active
-$create = $dbco->query("CREATE TABLE IF NOT EXISTS ".DBTABLEPREFIX."alias (
-						id INTEGER PRIMARY KEY  AUTO_INCREMENT,
-						status INTEGER(1) NOT NULL,
-						alias CHAR(150) NOT NULL UNIQUE,
-						email CHAR(150) NOT NULL,
-						dateCreat DATETIME NOT NULL,
-						dateExpir DATETIME,
-						comment TEXT);");
+	// status : 0=not verified - 3=disable - 5=active
+	if (preg_match('/^sqlite/', DB)) {
+		$create = $dbco->query("CREATE TABLE IF NOT EXISTS ".DBTABLEPREFIX."alias (
+								id INTEGER PRIMARY KEY,
+								status INTEGER(1) NOT NULL,
+								alias CHAR(150) NOT NULL UNIQUE,
+								email CHAR(150) NOT NULL,
+								dateCreat DATETIME NOT NULL,
+								dateExpir DATETIME,
+								comment TEXT);");
+	} else {
+		$create = $dbco->query("CREATE TABLE IF NOT EXISTS ".DBTABLEPREFIX."alias (
+								id INTEGER PRIMARY KEY  AUTO_INCREMENT,
+								status INTEGER(1) NOT NULL,
+								alias CHAR(150) NOT NULL UNIQUE,
+								email CHAR(150) NOT NULL,
+								dateCreat DATETIME NOT NULL,
+								dateExpir DATETIME,
+								comment TEXT);");
+	}
 } catch ( PDOException $e ) {
 	echo '<div class="highlight-1">Erreur à l\'initialisation des tables. Merci de contacter l\'administrateur ';
 	if (DEBUG) { $e->getMessage(); }
@@ -85,12 +96,11 @@ $create = $dbco->query("CREATE TABLE IF NOT EXISTS ".DBTABLEPREFIX."alias (
 // Start program
 //////////////////
 
-// get process act
+// get process "act" (action)
 $action = isset($_GET['act']) ? $_GET['act'] : '';
 switch ($action) {
 	case "validemail" :
 		$get_value = urlUnGen($_GET['value']);
-		echo $dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE id = '".$get_value['id']."' AND status = 0")->fetchColumn();
 		if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE id = '".$get_value['id']."' AND status = 0")->fetchColumn() != 0) {
 			UpdateStatusAlias($get_value['id'], $get_value['alias_full'], 5);
 			echo '<div class="highlight-3">Votre email poubelle <b>'.$get_value['alias_full'].'</b> est maintenant actif</div>';
@@ -123,7 +133,7 @@ switch ($action) {
 if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spam 
 	echo 'Hello you';
 } else if (isset($_POST['list'])) {
-	$email=strtolower($_POST['email']);
+	$email=strtolower(StripCleanToHtml($_POST['email']));
 	if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect</div>';
 	} else if (! VerifMXemail($email)) {
@@ -134,11 +144,11 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 		echo '<div class="highlight-1">Erreur : aucun email actif connu</div>';
 	}
 } else if (isset($_POST['email']) && isset($_POST['alias'])) {
-	$alias=strtolower($_POST['alias']);
-	$email=strtolower($_POST['email']);
-	$domain=$_POST['domain'];
+	$alias=strtolower(StripCleanToHtml($_POST['alias']));
+	$email=strtolower(StripCleanToHtml($_POST['email']));
+	$domain=StripCleanToHtml($_POST['domain']);
 	$life=$_POST['life'];
-	$comment=$_POST['comment'];
+	$comment=StripCleanToHtml($_POST['comment']);
 	$alias_full=$alias.'@'.$domain;
 	// Check form
 	if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -167,8 +177,9 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 				$message= $alias_full.' => '.$email."\n";
 				$message= "Cliquer sur le lien ci-dessous pour confirmer : \n";
 				$message.= "\t * ".urlGen('validemail',$lastId,$alias_full)."\n";
+				$message.= "\n";
 				$message.= "Pour supprimer cet email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n";
-				$message.= "\t * ".urlGen('del',$lastId,$alias_full)."\n";
+				$message.= "\t * ".urlGen('delete',$lastId,$alias_full)."\n";
 				$message.= "\n";
 				$message.= "Après confirmation, vous pourez suspendre temporairement cet email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n";
 				$message.= "\t * ".urlGen('disable',$lastId,$alias_full)."\n";
@@ -182,7 +193,7 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 			$message= "Confirmation de la création de votre redirection email poubelle : ";
 			$message= $alias_full.' => '.$email."\n";
 			$message= "Cliquer sur le lien ci-dessous pour confirmer la suppression : \n";
-			$message.= "\t * ".urlGen('del',$id,$alias_full)."\n\n";
+			$message.= "\t * ".urlGen('delete',$id,$alias_full)."\n\n";
 			$message.= "Sinon pour suspendre temporairement cet email poubelle vous pouvez vous rendre sur le lien ci-dessou : \n";
 			$message.= "\t * ".urlGen('disable',$id,$alias_full)."\n";
 			SendEmail($email,'Suppression de l\'alias '.$alias,$message);
@@ -200,7 +211,7 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 
 	// memory email
 	if (isset($_POST['memory'])) {
-		setcookie ("email", $email, time() + 31536000);
+		setcookie ("email", StripCleanToHtml($email), time() + 31536000);
 	} else if (isset($_COOKIE['email'])) {
 		unset($_COOKIE['email']);
 	}
@@ -364,3 +375,15 @@ if (!CRON) { LifeExpire(); }
 echo CheckUpdate(); 
 } // end maintenance mod
 ?>
+
+<link href="http://cdn.wijmo.com/themes/rocket/jquery-wijmo.css" rel="stylesheet" type="text/css" />
+<link href="http://cdn.wijmo.com/jquery.wijmo-open.1.1.5.css" rel="stylesheet" type="text/css" />
+<link href="http://cdn.wijmo.com/jquery.wijmo-complete.1.1.5.css" rel="stylesheet" type="text/css" />
+<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.5.1.min.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.11/jquery-ui.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/external/jquery.bgiframe-2.1.3-pre.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/external/jquery.glob.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/external/jquery.mousewheel.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/external/raphael-min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/jquery.wijmo-open.1.1.5.min.js" type="text/javascript"></script>
+<script src="http://cdn.wijmo.com/jquery.wijmo-complete.1.1.5.min.js" type="text/javascript"></script>
