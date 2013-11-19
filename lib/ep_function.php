@@ -299,4 +299,16 @@ function CheckUpdate() {
 		}
 	}
 }
+
+function LifeExpire() {
+	global $dbco;
+	try {
+		$deletecmd = $dbco->prepare("DELETE FROM ".DBTABLEPREFIX."alias WHERE dateExpir IS NOT NULL AND dateExpir < '".date('Y-m-d H:i:s')."'");
+		$deletecmd->execute();
+	} catch ( PDOException $e ) {
+		echo "DB error :  ", $e->getMessage();
+		die();
+	}	
+	return true;
+}
 ?>

@@ -248,6 +248,9 @@ article form {
 		text-shadow : 0 -1px 1px rgba(0,0,0,0.25);
 		width : 25%;
 	}
+	article input.button:disabled, .btn{
+		color: #888;
+	}
 	article textarea {
 		height : 100px;
 	}

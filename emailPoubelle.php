@@ -107,6 +107,14 @@ switch ($action) {
 		$get_value = urlUnGen($_GET['value']);
 		DeleteAlias($get_value['id'], $get_value['alias_full']);
 	break;
+	case "cron" :
+		if (CRON) {
+			echo '<div class="highlight-2">La tâche planifié est lancé</div>';
+			LifeExpire();
+		} else {
+			echo '<div class="highlight-1">Vous n\'avez pas autorisé le lancement par tâche planifié</div>';
+		}
+	break;
 }
 // Form
 if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spam 
@@ -346,4 +354,7 @@ $dbco = null;
 <p>Version <?= VERSION ?> - Créé par David Mercereau sous licence GNU GPL v3</p>
 <p>Télécharger et utiliser ce script sur le site du projet <a target="_blank" href="http://forge.zici.fr/p/emailpoubelle-php/">emailPoubelle.php</a></p>
 
-<?php echo CheckUpdate(); ?>
+<?php 
+LifeExpire();
+echo CheckUpdate(); 
+?>
