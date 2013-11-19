@@ -324,7 +324,6 @@ function LifeExpire() {
 	} catch ( PDOException $e ) {
 		echo "DB error :  ", $e->getMessage();
 		die();
-	}	
-	return true;
+	}
 }
 ?>

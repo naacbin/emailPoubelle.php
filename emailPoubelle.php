@@ -216,8 +216,6 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 		unset($_COOKIE['email']);
 	}
 }
-// Close connexion DB
-$dbco = null;
 
 //////////////////
 // Printing form
@@ -371,6 +369,8 @@ $dbco = null;
 <?php 
 // execute lifeExpir if isn't in crontab
 if (!CRON) { LifeExpire(); }
+// Close connexion DB
+$dbco = null;
 // checkupdate
 echo CheckUpdate(); 
 } // end maintenance mod
