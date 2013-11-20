@@ -265,8 +265,8 @@ function SendEmail($recipient, $sujet, $message) {
 
 function urlGen($act,$id,$alias_full) {
 	$idUrl=base64_encode($id.';'.$alias_full);
-	if (URLREWRITE_DEBUT && URLREWRITE_FIN) {
-		return URLREWRITE_DEBUT.$idUrl.URLREWRITE_FIN;
+	if (URLREWRITE_START && URLREWRITE_MIDDLE && URLREWRITE_END) {
+		return URLREWRITE_START.$act.URLREWRITE_MIDDLE.$idUrl.URLREWRITE_END;
 	} else {
 		return URLPAGE."?act=".$act."&value=".$idUrl;
 	}

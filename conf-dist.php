@@ -14,7 +14,6 @@ define('INC', '../lib');
 
 // include function
 include_once(INC.'/ep_function.php');
-include_once(INC.'/ep_admin.php');
 
 define('DEBUG', false);
 
@@ -30,6 +29,8 @@ define('DOMAIN', 'exemple.fr');
 // Exemple pour Sqlite : 
 //      define('DB', 'sqlite:./data/emailPoubelle.sqlite');
 define('DB', 'sqlite:'.DATA.'/database.sdb');
+// table prefix
+define('DBTABLEPREFIX', 'ep_');
 
 // Use cron (true/false) for life expire email (recomanded)
 // 	If use true add in crontab : 
@@ -65,12 +66,14 @@ if (CHECKMX) {
 
 // A indiquer si vous utiliser les URL's rewriting
 // Exemple avec un htaccess
-// 		RewriteRule ^EmailPoubell-([0-9]+)\.html$  folder/emailPoubelle.php?&Validemail=$1  [L]
-//define('URLREWRITE_DEBUT', 'http://www.zici.fr/EmailPoubell-');
-//define('URLREWRITE_FIN', '.html');
+// 		RewriteRule ^ep-([a-z]+)-([a-zA-Z0-9+/=]+)\.html$  switch.php?page=emailPoubelle&act=$1&value=$2  [L]
+//define('URLREWRITE_START', 'http://poubelle.zici.fr/ep-');
+//define('URLREWRITE_MIDDLE', '-');
+//define('URLREWRITE_END', '.html');
 // Désactiver
-define('URLREWRITE_DEBUT', false);
-define('URLREWRITE_FIN', false);
+define('URLREWRITE_START', false);
+define('URLREWRITE_MIDDLE', false);
+define('URLREWRITE_END', false);
 
 // check update :
 // 		enable : in seconds
