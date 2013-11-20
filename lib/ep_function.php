@@ -223,7 +223,7 @@ function ListeAlias($email) {
 	$nb_alias_disable=0;
 	$message= "## Liste de vos redirections poubelles active : \n\n";
 	while($alias_db = $selectcmd->fetch()) {
-		if ($alias_db['status'] == 3 && $nb_alias != 0) {
+		if ($alias_db['status'] == 3 && $nb_alias_disable == 0) {
 			$message.= "## Liste de vos redirections poubelles désactivé : \n\n";
 		} 
 		$message.=" * ".$alias_db['alias']." Créé le ".$alias_db['dateCreat'];
@@ -239,7 +239,7 @@ function ListeAlias($email) {
 			$nb_alias++;
 		} else {
 			$message.="\tActiver : ".urlGen('enable',$alias_db['id'],$alias_db['alias'])."\n";
-			$nb_alias++;
+			$nb_alias_disable++;
 		}
 		$message.="\tSupprimer : ".urlGen('delete',$alias_db['id'],$alias_db['alias'])."\n\n";
 	}
