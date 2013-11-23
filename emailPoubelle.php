@@ -284,9 +284,7 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 		return re.test(email);
 	} 
 	function printForm() {
-		console.log("appel de la fonction : " + document.getElementById('input-email').value + document.getElementById('input-alias').value);
 		if (validateEmail(document.getElementById('input-email').value) && document.getElementById('input-alias').value != '') {
-			console.log("Les 2 sont OK");
 			document.getElementById('input-alias').disabled = false; 
 			document.getElementById('input-domain').disabled = false; 
 			document.getElementById('button-list').disabled = false; 
@@ -299,7 +297,6 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 				document.getElementById('form-comment').style.display = "block" ;
 			}
 		} else if (validateEmail(document.getElementById('input-email').value)) {
-			console.log("email ok");
 			document.getElementById('input-alias').disabled = false; 
 			document.getElementById('input-domain').disabled = false; 
 			document.getElementById('button-list').disabled = false;
@@ -312,7 +309,6 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 			document.getElementById('input-life').disabled = true;
 			document.getElementById('form-comment').style.display = "none" ;
 		} else {
-			console.log("rien OK");
 			document.getElementById('input-alias').disabled = true; 
 			document.getElementById('input-domain').disabled = true; 
 			document.getElementById('button-list').disabled = true; 
@@ -326,7 +322,6 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 	}
 	function ongletPrint() {
 		var ongletActif = document.getElementById('onglet-actif').value;
-		console.log(ongletActif);
 		document.getElementById('onglet-add').className = "close" ;
 		document.getElementById('onglet-del').className = "close" ;
 		document.getElementById('onglet-list').className = "close" ;
@@ -355,7 +350,6 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 		}
 	}
 	function ongletChange(ongletValue) {
-		console.log(ongletValue);
 		document.getElementById('onglet-actif').value = ongletValue;
 		ongletPrint();
 	}
