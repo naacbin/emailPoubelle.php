@@ -21,7 +21,7 @@ Télécharger & décompresser les sources :
     cd /tmp
     wget -O emailPoubelle.zip http://forge.zici.fr/p/emailpoubelle-php/source/download/master/
     unzip emailPoubelle.zip
-    cp emailpoubelle-php-master/* /var/www/emailPoubelle
+    cp -r emailpoubelle-php-master/* /var/www/emailPoubelle
 
 Configure apache virtualhost
 	[...]
@@ -32,13 +32,13 @@ Configurer Postfix :
 
     vi /etc/postfix/main.cf
         [...]
-        virtual_alias_maps = hash:/www/emailPoubelle/postfix/virtual
-    touch /www/emailPoubelle/postfix/virtual
-    /usr/sbin/postmap /www/emailPoubelle/postfix/virtual
-    chown www-data /www/emailPoubelle/postfix/virtual
-    chown www-data /www/emailPoubelle/postfix/virtual.db
+        virtual_alias_maps = hash:/www/emailPoubelle/var/virtual
+    touch /www/emailPoubelle/var/virtual
+    /usr/sbin/postmap /www/emailPoubelle/var/virtual
+    chown www-data /www/emailPoubelle/var/virtual
+    chown www-data /www/emailPoubelle/var/virtual.db
 
-Ajouter dans le fichier /etc/alias le devnull
+Ajouter dans le fichier /etc/aliases le devnull
 
 	echo "devnull:	/dev/null" >> /etc/aliases
 	newaliases
