@@ -2,6 +2,8 @@
 
   - support postfix-mysql (not plain text virtual file)
   - admin panel page with statistic
+  - limit nb alias / email
+  - javascript checkupgrade in admin page
   - add second table in database (for domain/checkupdate/intervale cron)
   - send email for advertisement action ?
 
