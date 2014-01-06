@@ -7,6 +7,12 @@
   - add second table in database (for domain/checkupdate/intervale cron)
   - send email for advertisement action ?
 
+## 1.0.1 (2014-01-06)
+
+Bugfixes:
+
+  - fixe ListeAlias no send email if error
+
 ## 1.0 (2013-10-02)
 
 Features:

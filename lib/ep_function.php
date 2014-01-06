@@ -244,10 +244,10 @@ function ListeAlias($email) {
 		$message.="\tSupprimer : ".urlGen('delete',$alias_db['id'],$alias_db['alias'])."\n\n";
 	}
 	$nb_alias_total = $nb_alias + $nb_alias_disable;
-	SendEmail($email,'Liste de vos '.$nb_alias_total.' redirection(s) poubelle(s)',$message);
 	if ($nb_alias_total == 0) {
 		return false;
 	} else {
+		SendEmail($email,'Liste de vos '.$nb_alias_total.' redirection(s) poubelle(s)',$message);
 		return true;
 	}
 }
