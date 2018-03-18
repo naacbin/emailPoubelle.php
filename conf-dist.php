@@ -20,6 +20,8 @@ define('DEBUG', false);
 // Domain email (separe with ; exemple : exemple.com;zici.fr;exemple.fr)
 define('DOMAIN', 'exemple.fr');
 //define('DOMAIN', 'exemple.com;zici.fr;exemple.fr');
+// Nombre d'alias poubelle limite par email
+define('ALIASLIMITBYMAIL', 30);
 
 // PDO stucture
 // Exemple pour MYSQL : 

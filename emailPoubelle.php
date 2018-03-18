@@ -157,8 +157,10 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 		echo '<div class="highlight-1">Erreur : Adresse email incorrect (2)</div>';
 	} else if (! preg_match('#^[\w.-]+$#',$alias)) {
 		echo '<div class="highlight-1">Erreur : Format de l\'email poubelle incorrect</div>';
-	} else if (! preg_match('#'.$domain.'#',DOMAIN)) {
+	} else if (!domainePresent($domain)) {
 		echo '<div class="highlight-1">Erreur : ce domain n\'est pas pris en charge</div>';
+	} else if (emailIsAlias($email)) {
+		echo '<div class="highlight-1">Erreur : votre email ne peut pas contenir un domaine "poubelle"</div>';
 	} else if (AliasDeny($alias)) {
 		echo '<div class="highlight-1">Erreur : email poubelle interdit</div>';
 	} else if (BlacklistEmail($email)) {
@@ -167,6 +169,8 @@ if (isset($_POST['username']) && $_POST['username'] != '') { // minimal anti-spa
 	} elseif (isset($_POST['add'])) {
 		if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE alias = '".$alias_full."'")->fetchColumn() != 0) {
 			echo '<div class="highlight-1">Erreur : cet email poubelle est déjà utilisé</div>';
+		} else if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE email = '".$email."'")->fetchColumn() > ALIASLIMITBYMAIL) {
+			echo '<div class="highlight-1">Erreur : Vous avez atteind votre quota limite de '.ALIASLIMITBYMAIL.' alias sur cette application. Vous pouvez <a href="http://forge.zici.fr/p/emailpoubelle-php/">installer ce script</a> sur un serveur personnel si vous voulez plus de quota.</div>';
 		} else {
 			if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE email = '".$email."' AND status > 0")->fetchColumn() != 0) {
 				AjouterAlias(5, $alias_full, $email, $life, $comment);

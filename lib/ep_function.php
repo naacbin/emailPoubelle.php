@@ -326,4 +326,39 @@ function LifeExpire() {
 		die();
 	}
 }
+
+// Vérifie que le domaine de l'alias est bien dans la configuration
+function domainePresent($postDom) {
+	$domains = explode(';', DOMAIN);
+	$return=true;
+	if (count($domains) == 1) {
+		if (!preg_match('#'.$postDom.'#',DOMAIN)) {
+			$return=false;
+		}
+	} else {
+		foreach ($domains as $one_domain)  {
+			if (!preg_match('#'.$postDom.'#',$one_domain)) {
+				$return=false;
+			}
+		}
+	}
+	return $return;
+}
+// Vérifie que l'email n'est pas un alias avec un domain "poubelle" (éviter boucle forward)
+function emailIsAlias($postemail) {
+	$domains = explode(';', DOMAIN);
+	$return=false;
+	if (count($domains) == 1) {
+		if (preg_match('#'.DOMAIN.'$#',$postemail)) {
+			$return=true;
+		}
+	} else {
+		foreach ($domains as $one_domain)  {
+			if (preg_match('#'.$one_domain.'$#',$postemail)) {
+				$return=true;
+			}
+		}
+	}
+	return $return;
+}
 ?>
