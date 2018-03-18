@@ -31,7 +31,7 @@ function UpdateVirtualDB() {
 		$selectcmd = $dbco->prepare("SELECT status, alias, email
 									FROM ".DBTABLEPREFIX."alias 
 									WHERE status > 0
-									ORDER BY id ASC");
+									ORDER BY alias ASC");
 		$selectcmd->execute();
 	} catch ( PDOException $e ) {
 		echo "DB error :  ", $e->getMessage();

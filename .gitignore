@@ -5,3 +5,4 @@ checkupdate
 conf.php
 test*
 var/database*
+var/.htaccess

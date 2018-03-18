@@ -1,4 +1,7 @@
 /^exemple@exemple.com$/
 /.pl$/
 /^exemple[1-9]+@toto.fr$/
-
+/@yopmail.com$/
+/^harou/
+/@gmx.com$/
+/^sportnet/
