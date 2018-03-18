@@ -1,11 +1,16 @@
-## 1.1 (future)
+## 2 (future)
 
   - support postfix-mysql (not plain text virtual file)
-  - admin panel page with statistic
-  - limit nb alias / email
   - javascript checkupgrade in admin page
-  - add second table in database (for domain/checkupdate/intervale cron)
-  - send email for advertisement action ?
+
+## 1.4 (2018-03-19)
+
+ - Interface admin avec stats, top user, possibilité de nettoyer, blacklister...
+
+## 1.2 (2018-03-19)
+
+  - Ne pas permettre la création d'un alias depuis un alias
+  - Limiter le nombre d'alias possible 
 
 ## 1.0.1 (2014-01-06)
 

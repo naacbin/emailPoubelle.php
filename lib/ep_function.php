@@ -4,6 +4,9 @@
 // Function 
 //////////////////
 
+// Status explication : 
+//  0=not verified - 3=disable - 5=active
+
 // Verification des emails
 function VerifMXemail($email) {
     if (CHECKMX) {
@@ -78,6 +81,32 @@ function AjouterAlias($status, $alias,$email, $life, $comment) {
 	return $dbco->lastInsertId();
 }
 
+// delete email
+function DeleteEmail($email) {
+	global $dbco;
+	if ($dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE email = '".$email."'")->fetchColumn() != 0) {
+		try {
+			$deletecmd = $dbco->prepare("DELETE FROM ".DBTABLEPREFIX."alias WHERE email = :email");
+			$deletecmd->bindParam('email', $email, PDO::PARAM_STR);
+			$deletecmd->execute();
+			echo '<div class="highlight-3">l\'email <b>'.$email.'</b> a bien été supprimé avec tout ces alias.</div>';
+		} catch ( PDOException $e ) {
+			echo "DB error :  ", $e->getMessage();
+			die();
+		}	
+	} else {
+		echo '<div class="highlight-1">Erreur : email <b>'.$email.'</b> n\'a pas été supprimé.</div>';
+	}
+	UpdateVirtualDB();
+}
+
+function AddBlacklistEmail($email) {
+	$contenu = '/^'.$email.'$/';
+	$fichier = fopen(BLACKLIST, 'a');
+	fwrite($fichier, $contenu."\n");
+	fclose($fichier);
+	echo '<div class="highlight-3">La mention '.$contenu.' a été ajouté au fichier de blackliste '.BLACKLIST.'</div>';
+}
 // delete alias
 function DeleteAlias($id, $alias_full) {
 	global $dbco;

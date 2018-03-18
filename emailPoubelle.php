@@ -10,16 +10,11 @@
 // Depend : Postifx (postmap command) php-pdo
 //----------------------------------------------------------- 
 
-// @todo
-// 	form ergonomie
-// 	sqlite
-//	disable time	
-
 //////////////////
 // Init & check
 //////////////////
 
-define('VERSION', '1.0');
+define('VERSION', '1.4');
 
 if (DEBUG) {
     error_reporting(E_ALL);
