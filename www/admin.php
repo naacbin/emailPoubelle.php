@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<title>emailPoubelle - Template-exemple</title>
+<title>emailPoubelle Admin - Template-exemple</title>
 <meta charset="UTF-8">
 <meta name="description" content="">
 <meta name="robots" content="index,follow,noarchive">
@@ -20,7 +20,7 @@
 		</header>
 		<div id="b">
 			<article>
-				<h1>Emails poubelle libre</h1>
+				<h1>Emails poubelle libre - Interface d'administration</h1>
 				<p>Générer des emails poubelle sans contrainte de durée de vie. </p>
 				<?php 
 				// Intégration dans votre site :
