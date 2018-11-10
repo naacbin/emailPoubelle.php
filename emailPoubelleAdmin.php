@@ -17,7 +17,7 @@ if (isset($_POST['adminPassword'])) {
 	$_SESSION['adminPasswordHash'] = password_hash($_POST['adminPassword'], PASSWORD_DEFAULT);
 }
 if (isset($_SESSION['adminPasswordHash'])) {
-	if (password_verify('admin', $_SESSION['adminPasswordHash'])) {
+	if (password_verify(ADMIN_PASSWORD, $_SESSION['adminPasswordHash'])) {
 		$auth=true;
 	} else {
 		$auth=false;

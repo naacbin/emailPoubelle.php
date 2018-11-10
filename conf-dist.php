@@ -88,12 +88,8 @@ define('MAINTENANCE_MODE', false);
 define('MAINTENANCE_IP', '10.0.0.1');
 
 
-// Usage de password-hash https://php.net/manual/fr/function.password-hash.php
-//	Vous pouvez crtyper le mot de passe en ligne avec les outils : 
-//		http://www.passwordtool.hu/php5-password-hash-generator
-//		https://php-password-hash-online-tool.herokuapp.com/password_hash (PASSWORD_DEFAULT, no auto-generated, no cost 10)
 // Mot de passe par défaut "admin" : 
-define('ADMIN_PASSWORD', '$2y$10$BncfiLy8VEYtkLVIlL5Ar.TVPY9Q3KbllJrdHNuSU5WCRnKafWM5K');
+define('ADMIN_PASSWORD', 'admin');
 
 
 ?>
