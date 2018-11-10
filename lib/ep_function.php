@@ -284,10 +284,12 @@ function ListeAlias($email) {
 function SendEmail($recipient, $sujet, $message) {
 	$header = "From: ".EMAILFROM."\n";
 	$header.= "MIME-Version: 1.0\n";
+/*
 	if (preg_match('#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#', $recipient)) {
 		$header = str_replace("\n", "\r\n", $header);
 		$message = str_replace("\n", "\r\n", $header);
 	}
+*/
 	$message="Bonjour,\n\n".$message."\n\n".
 	mail($recipient,EMAILTAGSUJET.' '.$sujet,$message,$header);
 }
