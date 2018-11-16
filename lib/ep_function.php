@@ -7,6 +7,7 @@
 // Status explication : 
 //  0=not verified - 3=disable - 5=active
 
+
 // Verification des emails
 function VerifMXemail($email) {
     if (CHECKMX) {
@@ -89,13 +90,13 @@ function DeleteEmail($email) {
 			$deletecmd = $dbco->prepare("DELETE FROM ".DBTABLEPREFIX."alias WHERE email = :email");
 			$deletecmd->bindParam('email', $email, PDO::PARAM_STR);
 			$deletecmd->execute();
-			echo '<div class="highlight-3">l\'email <b>'.$email.'</b> a bien été supprimé avec tout ces alias.</div>';
+			echo '<div class="highlight-3"><b>'.$email.'</b> '._('has been deleted with all these aliases').'.</div>';
 		} catch ( PDOException $e ) {
 			echo "DB error :  ", $e->getMessage();
 			die();
 		}	
 	} else {
-		echo '<div class="highlight-1">Erreur : email <b>'.$email.'</b> n\'a pas été supprimé.</div>';
+		echo '<div class="highlight-1">'._('Erreur').' :  <b>'.$email.'</b> '._('has not been deleted').'.</div>';
 	}
 	UpdateVirtualDB();
 }
@@ -116,13 +117,13 @@ function DeleteAlias($id, $alias_full) {
 			$deletecmd->bindParam('id', $id, PDO::PARAM_INT);
 			$deletecmd->bindParam('alias_full', $alias_full, PDO::PARAM_STR);
 			$deletecmd->execute();
-			echo '<div class="highlight-3">l\'email <b>'.$alias_full.'</b> a bien été supprimé</div>';
+			echo '<div class="highlight-3"><b>'.$alias_full.'</b> '._('has been deleted').'</div>';
 		} catch ( PDOException $e ) {
 			echo "DB error :  ", $e->getMessage();
 			die();
 		}	
 	} else {
-		echo '<div class="highlight-1">Erreur : email poubelle inconnu</div>';
+		echo '<div class="highlight-1">'._('Error: email trash unknown').'</div>';
 	}
 	UpdateVirtualDB();
 }
@@ -141,16 +142,16 @@ function EnableAlias($id, $alias_full, $email) {
 	$selectcmd->execute();
 	$alias_fetch = $selectcmd->fetch();
 	if (! $alias_fetch) {
-		echo '<div class="highlight-1">Erreur : impossible de trouver cet email poubelle</div>';
+		echo '<div class="highlight-1">'._('Error: Can not find this trash email').'</div>';
 	} else if ($alias_fetch['status'] == 3) {
 		UpdateStatusAlias($alias_fetch['id'], $alias_full, 5);
-		echo '<div class="highlight-3">La réception sur <b>'.$alias_full.'</b> est de nouveau active.</div>';
+		echo '<div class="highlight-3">'._('The reception on').' <b>'.$alias_full.'</b> '._('is active again').'.</div>';
 	} else if ($alias_fetch['status'] == 5) {
-		echo '<div class="highlight-2">La réception sur <b>'.$alias_full.'</b> est déjà active.</div>';
+		echo '<div class="highlight-2">'._('The reception on').' <b>'.$alias_full.'</b> '._('is already active').'.</div>';
 	} else if ($alias_fetch['status'] == 0) {
-		echo '<div class="highlight-1">La réception sur <b>'.$alias_full.'</b n\'à pas été confirmé par email.</div>';
+		echo '<div class="highlight-1">'._('The reception on').' <b>'.$alias_full.'</b '._('has not been confirmed by email').'.</div>';
 	} else {
-		echo '<div class="highlight-1">Erreur : status inconnu</div>';
+		echo '<div class="highlight-1">'._('Error: unknown status').'</div>';
 	}
 	UpdateVirtualDB();
 }
@@ -169,16 +170,16 @@ function DisableAlias($id, $alias_full, $email) {
 	$selectcmd->execute();
 	$alias_fetch = $selectcmd->fetch();
 	if (! $alias_fetch) {
-		echo '<div class="highlight-1">Erreur : impossible de trouver cet email poubelle</div>';
+		echo '<div class="highlight-1">'._('Error: Can not find this trash email').'</div>';
 	} else if ($alias_fetch['status'] == 5) {
 		UpdateStatusAlias($alias_fetch['id'], $alias_full, 3);
-		echo '<div class="highlight-3">La réception sur <b>'.$alias_full.'</b> est maintenant suspendu.</div>';
+		echo '<div class="highlight-3">'._('The reception on').' <b>'.$alias_full.'</b> '._('is now suspended').'.</div>';
 	} else if ($alias_fetch['status'] == 3) {
-		echo '<div class="highlight-2">La réception sur <b>'.$alias_full.'</b> est déjà suspendu.</div>';
+		echo '<div class="highlight-2">'._('The reception on').' <b>'.$alias_full.'</b> '._('is already suspended').'.</div>';
 	} else if ($alias_fetch['status'] == 0) {
-		echo '<div class="highlight-1">La réception sur <b>'.$alias_full.'</b> ne peut être suspendu car elle n\'a pas encore été activé.</div>';
+		echo '<div class="highlight-1">'._('The reception on').' <b>'.$alias_full.'</b> '._('can not be suspended because it has not been activated yet').'.</div>';
 	} else {
-		echo '<div class="highlight-1">Erreur : status inconnu</div>';
+		echo '<div class="highlight-1">'._('Error: unknown status').'</div>';
 	}
 	UpdateVirtualDB();
 }
@@ -250,33 +251,33 @@ function ListeAlias($email) {
 	}
 	$nb_alias=0;
 	$nb_alias_disable=0;
-	$message= "## Liste de vos redirections poubelles active : \n\n";
+	$message= "## "._('List trash email activate')." : \n\n";
 	while($alias_db = $selectcmd->fetch()) {
 		if ($alias_db['status'] == 3 && $nb_alias_disable == 0) {
-			$message.= "## Liste de vos redirections poubelles désactivé : \n\n";
+			$message.= "## "._('List trash email disable')." : \n\n";
 		} 
-		$message.=" * ".$alias_db['alias']." Créé le ".$alias_db['dateCreat'];
+		$message.=" * ".$alias_db['alias']." "._('Create ')." ".$alias_db['dateCreat'];
 		if ($alias_db['dateExpir']) {
-			$message.=" et expire le ".$alias_db['dateExpir'];
+			$message.=" "._('and expires on')." ".$alias_db['dateExpir'];
 		}
 		$message.="\n";
 		if ($alias_db['comment']) {
-			$message.="\tCommentaire : ".$alias_db['comment']."\n";
+			$message.="\t"._('Comment :')." ".$alias_db['comment']."\n";
 		}
 		if ($alias_db['status'] == 5) {
-			$message.="\tDésactiver : ".urlGen('disable',$alias_db['id'],$alias_db['alias'])."\n";
+			$message.="\t"._('Disable :')." ".urlGen('disable',$alias_db['id'],$alias_db['alias'])."\n";
 			$nb_alias++;
 		} else {
-			$message.="\tActiver : ".urlGen('enable',$alias_db['id'],$alias_db['alias'])."\n";
+			$message.="\t"._('Activate :')." ".urlGen('enable',$alias_db['id'],$alias_db['alias'])."\n";
 			$nb_alias_disable++;
 		}
-		$message.="\tSupprimer : ".urlGen('delete',$alias_db['id'],$alias_db['alias'])."\n\n";
+		$message.="\t"._('Delete :')." ".urlGen('delete',$alias_db['id'],$alias_db['alias'])."\n\n";
 	}
 	$nb_alias_total = $nb_alias + $nb_alias_disable;
 	if ($nb_alias_total == 0) {
 		return false;
 	} else {
-		SendEmail($email,'Liste de vos '.$nb_alias_total.' redirection(s) poubelle(s)',$message);
+		SendEmail($email,_('List trash email'),$message);
 		return true;
 	}
 }
@@ -340,7 +341,7 @@ function CheckUpdate() {
 		} 
 		$file_current_version = trim(file_get_contents(DATA.'/checkupdate'));
 		if ($file_current_version != '' && $file_current_version != VERSION) {
-			return '<p>Upgrade note : Votre version est en '.VERSION.' alors que la version en cours est en '.$file_current_version.'</p>';
+			return '<p>Upgrade note: Your version is in '.VERSION.' while the current version is in '.$file_current_version.'</p>';
 		} else {
 			return false;
 		}
@@ -391,5 +392,94 @@ function emailIsAlias($postemail) {
 		}
 	}
 	return $return;
+}
+
+
+function get_ip() {
+	// IP si internet partagé
+	if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+		return $_SERVER['HTTP_CLIENT_IP'];
+	}
+	// IP derrière un proxy
+	elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+		return $_SERVER['HTTP_X_FORWARDED_FOR'];
+	}
+	// Sinon : IP normale
+	else {
+		return (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '');
+	}
+}
+
+// Fonction langues : 
+function languesSwitch() {
+	echo '<script>
+	function langSwitch(lang) {
+		 document.getElementById(\'langSwitch\').value = lang;
+		 document.getElementById(\'fromLangueSwitch\').submit();
+	 }
+	</script>
+	<div class="eplangswitch" style="float: right">
+		<form id="fromLangueSwitch" action="#" method="post">
+			<input type="hidden" name="langSwitch" value="" id="langSwitch" />
+			<img alt="fr" src="'.URLINC.'/fr.png" onclick="langSwitch(\'fr\');" />
+			<img alt="en" src="'.URLINC.'/en.png" onclick="langSwitch(\'en\');" />
+		</form>
+	</div>';
+}
+
+function lang2locale($langue) {
+	global $langueEtLocalDispo;
+	if ($langueEtLocalDispo[$langue] != '') {
+		return $langueEtLocalDispo[$langue];
+	} else {
+		// par défaut
+		return 'en_US';
+	}
+}
+function locale2lang($localeRecherche) {
+	global $langueEtLocalDispo;
+	foreach($langueEtLocalDispo as $code=>$locale) {
+		if ($locale == $localeRecherche) {
+			return $code; 
+			break;
+		}
+	}
+	// par défaut
+	return 'en';
+}
+
+// Ajoute la langue à une URL qui n'en a pas
+function addLang2url($lang) {
+	global $_SERVER;
+	$URIexplode=explode('?', $_SERVER['REQUEST_URI']);
+	if ($URIexplode[1] != '') {
+		return $URIexplode[0].$URIexplode[1].'&langue='.$lang;
+	} else {
+		return $URIexplode[0].'?langue='.$lang;
+	}
+}
+function replaceLang2url($lang) {
+	global $_SERVER;
+	$URIexplode=explode('?', $_SERVER['REQUEST_URI']);
+	$debutUrl=substr($URIexplode[0], 0, -langCountChar($URIexplode[0]));
+	if ($URIexplode[1] != '') {
+		return $debutUrl.$lang.'?'.$URIexplode[1];
+	} else {
+		return $debutUrl.$lang;
+	}
+}
+function langCountChar($url) {
+	// $url reçu c'est l'URL avant la query : ?machin=1
+	if (preg_match('#/sr-Cyrl-ME$#',$url)) {
+		return 10;
+	} elseif (preg_match('#/[a-z]{2}-[A-Z]{2}$#',$url)) {
+		return 5;
+	} elseif (preg_match('#/[a-z]{3}-[A-Z]{2}$#',$url)) {
+		return 6;
+	} elseif (preg_match('#/[a-z]{3}$#',$url)) {
+		return 3;
+	} elseif (preg_match('#/[a-z]{2}$#',$url)) {
+		return 2;
+	}
 }
 ?>

@@ -24,11 +24,11 @@ if (isset($_SESSION['adminPasswordHash'])) {
 	}
 }
 if (isset($_POST['adminPassword']) && $auth==false) {
-	echo '<div class="highlight-1">Erreur : Mot de passe incorrect</div>';
+	echo '<div class="highlight-1">'._('Error: Incorrect password').'</div>';
 }
 if (empty($_SESSION['adminPasswordHash']) || $auth == false) {
 	echo '<form action="#" method="post">
-	<label>Le mot de passe admin : </label>
+	<label>'.('The admin password').' : </label>
 	<input type="password" name="adminPassword" />
 	<input type="submit" />
 	</form>';
@@ -36,6 +36,7 @@ if (empty($_SESSION['adminPasswordHash']) || $auth == false) {
 
 // Test connexion, si c'est ok : 
 if ($auth==true) {
+	languesSwitch();
 	// Connect DB
 	try {
 		if (preg_match('/^sqlite/', DB)) {
@@ -45,7 +46,7 @@ if ($auth==true) {
 		}
 		$dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	} catch ( PDOException $e ) {
-		die('Connexion à la base '.$e->getMessage());
+		die('DB connect error :  '.$e->getMessage());
 	}
 	if (isset($_POST['action'])) {
 		if ($_POST['action'] == 'DeleteEmail' && isset($_POST['email'])) {
@@ -71,31 +72,31 @@ if ($auth==true) {
 	}
     </script>
 	<?php
-	echo '<p>Statistique : </p>';
+	echo '<p>'._('Statistics').' : </p>';
 	echo '<ul>';
-	echo '<li>Total alias : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias")->fetchColumn().'</li>';
-	echo '<li>Alias actif : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE status = 5")->fetchColumn().'</li>';
-	echo '<li>Alias suspendu : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE status = 3")->fetchColumn().'</li>';
-	echo '<li>Alias non vérifié : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE status = 0")->fetchColumn().'</li>';
+	echo '<li>'._('Total alias').' : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias")->fetchColumn().'</li>';
+	echo '<li>'._('Active alias').' : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE status = 5")->fetchColumn().'</li>';
+	echo '<li>'._('Alias suspended').' : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE status = 3")->fetchColumn().'</li>';
+	echo '<li>'._('Alias not verified').' : '.$dbco->query("SELECT COUNT(*) FROM ".DBTABLEPREFIX."alias WHERE status = 0")->fetchColumn().'</li>';
 	//echo '<li>Email différent : '.$dbco->query("SELECT DISTINCT count(email) FROM ".DBTABLEPREFIX."alias WHERE status = 5")->fetchColumn().'</li>';
 	echo '</ul>';
 	
 	echo '<h3 id="user">User info</h3>';
 	echo '<form action="#" method="post">
-	<label>Indiquer l\'email de l\'utilisateur : </label>
+	<label>'._('User email').' : </label>
 	<input type="text" value="'.$_POST['email'].'" name="email" />
 	<input type="submit" />
 	</form>';
 	if (isset($_POST['email'])) {
 		$requestUtilisateur = $dbco->query("SELECT * FROM ".DBTABLEPREFIX."alias WHERE email='".$_POST['email']."' ORDER BY dateCreat DESC")->fetchAll() ;
-		echo '<p>Utilisateur '.$_POST['email'].' : ';
+		echo '<p>User '.$_POST['email'].' : ';
 		if (count($requestUtilisateur) != 0) {
 			echo '<img onclick="confirmation(\'uniqemail_'.$_POST['email'].'\', \'uniqaction_'.$_POST['email'].'\', \'DeleteEmail\')" src="'.URLINC.'/sup.png" alt="sup" />';
 			if (!BlacklistEmail($_POST['email'])) {
 				echo '<img onclick="confirmation(\'uniqemail_'.$_POST['email'].'\', \'uniqaction_'.$_POST['email'].'\', \'AddBlacklistEmail\')" src="'.URLINC.'/blk.png" alt="blk" />';
 			}
 		} else {
-			echo 'N\'existe pas !';
+			echo 'Not found !';
 		}
 		echo '<form style="display: none" method="post" action="#" id="uniqemail_'.$_POST['email'].'">
 		<input type="hidden" name="email" value="'.$_POST['email'].'" />
@@ -140,7 +141,7 @@ if ($auth==true) {
 	echo '<table>';
 	echo '<tr>
 			<th>Email</th>
-			<th style="text-align: center">Nombre d\'alias</th>
+			<th style="text-align: center">Number of alias</th>
 			<th style="text-align: center">Action</th>
 	</tr>';
 	foreach ($recordActifs as $recordActif) {

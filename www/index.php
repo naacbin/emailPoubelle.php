@@ -20,8 +20,8 @@
 		</header>
 		<div id="b">
 			<article>
-				<h1>Emails poubelle libre</h1>
-				<p>Générer des emails poubelle sans contrainte de durée de vie. </p>
+				<h1><?= _('Emails trash free') ?></h1>
+				<p><?= _('Generate trash emails without lifetime constraint') ?>. </p>
 				<?php 
 				// Intégration dans votre site :
 				if (file_exists('../conf.php')) {

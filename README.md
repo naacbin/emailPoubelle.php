@@ -19,11 +19,11 @@ Télécharger & décompresser les sources :
 
     mkdir -p /www/emailPoubelle/postfix
     cd /tmp
-    wget -O emailPoubelle.zip http://forge.zici.fr/p/emailpoubelle-php/source/download/master/
+    wget -O emailPoubelle.zip https://framagit.org/kepon/emailPoubellePhp/-/archive/master/emailPoubellePhp-master.zip
     unzip emailPoubelle.zip
     cp -r emailpoubelle-php-master/* /var/www/emailPoubelle
 
-Configure apache virtualhost
+Configure apache virtualhost (ou autres serveur http)
 	[...]
 	DocumentRoot /var/www/emailPoubelle/www
 	[...]

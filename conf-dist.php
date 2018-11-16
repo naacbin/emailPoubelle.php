@@ -11,9 +11,12 @@
 define('DATA', '../var');
 // include directory
 define('INC', '../lib');
+define('URLINC', './lib'); // or http://mondomaine.tld/lib
+define('LANG', '../lang');
 
 // include function
 include_once(INC.'/ep_function.php');
+include_once(INC.'/ep_header.php');
 
 define('DEBUG', false);
 

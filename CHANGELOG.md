@@ -1,7 +1,12 @@
-## 2 (future)
+## X (future)
 
   - support postfix-mysql (not plain text virtual file)
   - javascript checkupgrade in admin page
+
+## 2.0 (2018-11)
+
+  - Internationnalisation, traduction possible (fichier source dans lang/messages.pot)
+  - Traduction anglais / français (merci à https://github.com/matlink pour l'anglais)
 
 ## 1.4 (2018-03-19)
 

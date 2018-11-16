@@ -1,0 +1,312 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2018-11-16 12:57+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Report-msgstr-Bugs-To: \n"
+"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"POT-Creation-Date: \n"
+
+msgid "1 hours"
+msgstr "1 hour"
+
+msgid "15 hours"
+msgstr "15 hours"
+
+msgid "2 hours"
+msgstr "2 heure"
+
+msgid "30 hours"
+msgstr "30 hours"
+
+msgid "6 hours"
+msgstr "6 heures"
+
+msgid "7 hours"
+msgstr "7 hours"
+
+msgid "90 hours"
+msgstr "90 hours"
+
+msgid "Activate"
+msgstr "Activer"
+
+msgid "Activate :"
+msgstr "Activé : "
+
+msgid "Active alias"
+msgstr "Alias actif"
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid ""
+"After confirmation, you will be able to temporary suspend you trash email "
+"using the link below :"
+msgstr ""
+"Après confirmation, vous pourrez suspendre temporairement cet email poubelle "
+"vous pouvez vous rendre sur le lien ci-dessous : "
+
+msgid "Alias confirmation"
+msgstr "Confirmation alias "
+
+msgid "Alias deletion"
+msgstr "Suppression de l\\'alias "
+
+msgid "Alias not verified"
+msgstr "Alias non vérifié"
+
+msgid "Alias suspended"
+msgstr "Alias suspendu"
+
+msgid "An email has been sent to you"
+msgstr "Un email vient de vous être envoyé"
+
+msgid "Click on the link below to validate :"
+msgstr "Cliquer sur le lien ci-dessous pour confirmer"
+
+msgid "Click on the link below to validate the deletion :"
+msgstr "Cliquer sur le lien ci-dessous pour confirmer la suppression : "
+
+msgid "Comment :"
+msgstr "Commentaire"
+
+msgid "Comment for this trash email (for your to remember)"
+msgstr "Un commentaire pour l'ajout ? (pour votre mémoire)"
+
+msgid "Confirmation of the creation of your trash email :"
+msgstr "Confirmation de la création de votre email poubelle"
+
+msgid "Confirmation of the removal of your trash email : "
+msgstr "Confirmation de la suppression de votre email poubelle"
+
+msgid "Created by David Mercereau under licence GNU GPL v3"
+msgstr "Créé par David Mercereau sous licence GNU GPL v3"
+
+msgid "Créé le"
+msgstr "Crée le"
+
+msgid "Debug enabled"
+msgstr "Debug activé"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Delete :"
+msgstr "Supprimé : "
+
+msgid "Disable :"
+msgstr "Désactivé : "
+
+msgid "Download and use this script on the project website"
+msgstr "Télécharger et utiliser ce script sur le site du projet"
+
+msgid "Erreur"
+msgstr "Erreur"
+
+msgid "Error : Your email can not contain a trash domain"
+msgstr "Erreur : votre email ne peut pas être un email poubelle"
+
+msgid "Error : email address incorrect"
+msgstr "Erreur : Adresse email incorrect"
+
+msgid "Error : no known active trash email"
+msgstr "Erreur : aucun email actif connu"
+
+msgid "Error : the alias file cannot be written. Please contact the admin"
+msgstr ""
+"Erreur : le fichier d\\'alias ne peut pas être écrit. Merci de contacter l"
+"\\'administrateur"
+
+msgid "Error : the blacklist file cannot be read. Please contact the admin"
+msgstr ""
+"Erreur : un fichier de blacklist est renseigné mais n\\'est pas lisible. "
+"Merci de contacter l\\'administrateur"
+
+msgid ""
+"Error : the configuration file conf.php might not be included because the "
+"constants are not declared"
+msgstr ""
+"Erreur : Il ne semble pas que le fichier de configuration conf.php soit "
+"inclue car les constantes ne sont pas présentes"
+
+msgid ""
+"Error : the forbidden aliases file cannot be read. Please contact the admin"
+msgstr ""
+"Erreur : un fichier d\\'alias interdit est renseigné mais n\\'est pas "
+"lisible. Merci de contacter l\\'administrateur"
+
+msgid ""
+"Error : the working directory cannot be written. Please contact the admin"
+msgstr ""
+"Erreur : le répertoire de travail ne peut pas être écrit. Merci de contacter "
+"l\\'administrateur"
+
+msgid "Error : this domain cannot be used"
+msgstr "Erreur : ce domain n\\'est pas pris en charge"
+
+msgid "Error : this trash email already exists"
+msgstr "Erreur : cet email poubelle est déjà utilisé"
+
+msgid "Error : trash email address forbidden"
+msgstr "Erreur : email poubelle interdit"
+
+msgid "Error : trash email address syntax incorrect"
+msgstr "Erreur : Format de l\\'email poubelle incorrect"
+
+msgid "Error : unknown ID or already validated"
+msgstr "Erreur : ID introuvable ou déjà validé"
+
+msgid "Error : unknown trash email"
+msgstr "Erreur : impossible de trouver cet email poubelle"
+
+msgid "Error : you have been blacklisted"
+msgstr "Erreur : vous avez été blacklisté sur ce service"
+
+msgid "Error initializing tables. Please contact the admin"
+msgstr ""
+"Erreur à l\\'initialisation des tables. Merci de contacter l"
+"\\'administrateur "
+
+msgid "Error: Can not find this trash email"
+msgstr "Erreur : impossible de trouver cet email poubelle"
+
+msgid "Error: Incorrect password"
+msgstr "Erreur : mot de passe incorrect"
+
+msgid ""
+"Error: You have reached your limit quota on this app. You can <a href="
+"\"http://forge.zici.fr/p/emailpoubelle-php/\"> install this script </a> on a "
+"personal server if you want more quota"
+msgstr ""
+"Erreur : Vous avez atteind votre quota limite  d'alias sur cette "
+"application. Vous pouvez <a href=\"http://forge.zici.fr/p/emailpoubelle-php/"
+"\">installer ce script</a> sur un serveur personnel si vous voulez plus de "
+"quota."
+
+msgid "Error: email trash unknown"
+msgstr "Erreur : email poubelle inconnu"
+
+msgid "Error: unknown status"
+msgstr "Erreur : statu inconnu"
+
+msgid "Ex : Inscription sur zici.fr"
+msgstr "Ex : Inscription sur zici.fr"
+
+msgid "Ex : john_shop"
+msgstr "Ex : jean-petiteannonce"
+
+msgid ""
+"If you would like to temporary suspend this trash email, you can follow the "
+"link bellow :"
+msgstr ""
+"Sinon pour suspendre temporairement cet email poubelle vous pouvez vous "
+"rendre sur le lien ci-dessous : "
+
+msgid "List"
+msgstr "Lister"
+
+msgid "List trash email"
+msgstr "Liste email poubelle"
+
+msgid "List trash email activate"
+msgstr "Liste de vos email poubelles actif"
+
+msgid "List trash email disable"
+msgstr "Liste de vos email poubelles désactivé"
+
+msgid "Name of your trash email address"
+msgstr "Nom de l'email poubelle"
+
+msgid "Remember"
+msgstr "Mémoriser"
+
+msgid "Resume"
+msgstr "Reprendre"
+
+msgid "Service under maintenance"
+msgstr "Le service est en maintenance"
+
+msgid "Statistics"
+msgstr "Statistique"
+
+msgid "Suspend"
+msgstr "Suspendre"
+
+msgid "The reception on"
+msgstr "La réception sur"
+
+msgid "The scheduled task is running"
+msgstr "La tâche planifié est lancé"
+
+msgid "To delete this trash email, click on the link below :"
+msgstr ""
+"Pour supprimer cet email poubelle vous pouvez vous rendre sur le lien ci-"
+"dessous :"
+
+msgid "Total alias"
+msgstr "Alias total"
+
+msgid "Unlimited time"
+msgstr "Illimité"
+
+msgid "User email"
+msgstr "Email de l'utilisateur"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "You didn't allow the scheduled job"
+msgstr "Vous n\\'avez pas autorisé le lancement par tâche planifié"
+
+msgid "Your email address"
+msgstr "Votre email "
+
+msgid "Your real email address"
+msgstr "Votre email réel"
+
+msgid "Your trash email address"
+msgstr "Votre email poubelle"
+
+msgid "can not be suspended because it has not been activated yet"
+msgstr "ne peut pas être suspendu car il n'a pas encore été activé"
+
+msgid "et expire le"
+msgstr "et expire le"
+
+msgid "has been deleted"
+msgstr "a bien été supprimé"
+
+msgid "has been deleted with all these aliases"
+msgstr "a été supprimé avec tout ces alias"
+
+msgid "has not been confirmed by email"
+msgstr "n\\'à pas été confirmé par email"
+
+msgid "has not been deleted"
+msgstr "n'a pas été supprimé"
+
+msgid "is active again"
+msgstr "est maintenant activé"
+
+msgid "is already active"
+msgstr "est déjà activé"
+
+msgid "is already suspended"
+msgstr "Est déjà suspendu"
+
+msgid "is now enabled"
+msgstr "est maintenant actif"
+
+msgid "is now suspended"
+msgstr "Est maintenant suspendu"
+
+msgid "is unknown, a confirmation has been sent to you."
+msgstr "nous étant inconnu, une confirmation vous a été envoyé par email."

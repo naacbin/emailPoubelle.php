@@ -1,0 +1,11 @@
+cp lib/ep_function.php .
+xgettext *.php -o lang/messages.pot --from-code="UTF-8"
+msgmerge --no-wrap -N lang/fr/LC_MESSAGES/messages.po lang/messages.pot > lang/fr/LC_MESSAGES/messages-new.po
+
+# Edit lang/fr/LC_MESSAGES/messages-new.po
+
+mv lang/fr/LC_MESSAGES/messages-new.po lang/fr/LC_MESSAGES/messages.po
+mv lang/fr/LC_MESSAGES/messages-new.mo lang/fr/LC_MESSAGES/messages.mo
+rm ep_function.php
+msgfmt -o lang/fr/LC_MESSAGES/messages.mo -v lang/fr/LC_MESSAGES/messages.po
+
