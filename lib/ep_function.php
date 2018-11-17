@@ -422,6 +422,7 @@ function languesSwitch() {
 		<form id="fromLangueSwitch" action="#" method="post">
 			<input type="hidden" name="langSwitch" value="" id="langSwitch" />
 			<img alt="fr" src="'.URLINC.'/fr.png" onclick="langSwitch(\'fr\');" />
+			<img alt="it" src="'.URLINC.'/it.png" onclick="langSwitch(\'it\');" />
 			<img alt="en" src="'.URLINC.'/en.png" onclick="langSwitch(\'en\');" />
 		</form>
 	</div>';

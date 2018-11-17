@@ -12,6 +12,7 @@ $lang = $lang_from_http_accept[0];
 $langueEtLocalDispo=array(
 							'fr'		=> 'fr_FR', 
 							'en'		=> 'en_US', 
+							'it'		=> 'it_IT', 
 							);
 
 
