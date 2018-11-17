@@ -1,0 +1,383 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-16 12:45+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: emailPoubelleAdmin.php:27
+msgid "Error: Incorrect password"
+msgstr ""
+
+#: emailPoubelleAdmin.php:75
+msgid "Statistics"
+msgstr ""
+
+#: emailPoubelleAdmin.php:77
+msgid "Total alias"
+msgstr ""
+
+#: emailPoubelleAdmin.php:78
+msgid "Active alias"
+msgstr ""
+
+#: emailPoubelleAdmin.php:79
+msgid "Alias suspended"
+msgstr ""
+
+#: emailPoubelleAdmin.php:80
+msgid "Alias not verified"
+msgstr ""
+
+#: emailPoubelleAdmin.php:86
+msgid "User email"
+msgstr ""
+
+#: emailPoubelle.php:22
+msgid "Debug enabled"
+msgstr ""
+
+#: emailPoubelle.php:28
+msgid ""
+"Error : the configuration file conf.php might not be included because the "
+"constants are not declared"
+msgstr ""
+
+#: emailPoubelle.php:31
+msgid ""
+"Error : the working directory cannot be written. Please contact the admin"
+msgstr ""
+
+#: emailPoubelle.php:34
+msgid "Error : the alias file cannot be written. Please contact the admin"
+msgstr ""
+
+#: emailPoubelle.php:37
+msgid "Error : the blacklist file cannot be read. Please contact the admin"
+msgstr ""
+
+#: emailPoubelle.php:40
+msgid ""
+"Error : the forbidden aliases file cannot be read. Please contact the admin"
+msgstr ""
+
+#: emailPoubelle.php:43 emailPoubelle.php:47
+msgid "Service under maintenance"
+msgstr ""
+
+#: emailPoubelle.php:85
+msgid "Error initializing tables. Please contact the admin"
+msgstr ""
+
+#: emailPoubelle.php:102 emailPoubelle.php:173
+msgid "Your trash email address"
+msgstr ""
+
+#: emailPoubelle.php:102 emailPoubelle.php:173
+msgid "is now enabled"
+msgstr ""
+
+#: emailPoubelle.php:104
+msgid "Error : unknown ID or already validated"
+msgstr ""
+
+#: emailPoubelle.php:121
+msgid "The scheduled task is running"
+msgstr ""
+
+#: emailPoubelle.php:124
+msgid "You didn't allow the scheduled job"
+msgstr ""
+
+#: emailPoubelle.php:134 emailPoubelle.php:136 emailPoubelle.php:151
+#: emailPoubelle.php:153
+msgid "Error : email address incorrect"
+msgstr ""
+
+#: emailPoubelle.php:138 emailPoubelle.php:200
+msgid "An email has been sent to you"
+msgstr ""
+
+#: emailPoubelle.php:140
+msgid "Error : no known active trash email"
+msgstr ""
+
+#: emailPoubelle.php:155
+msgid "Error : trash email address syntax incorrect"
+msgstr ""
+
+#: emailPoubelle.php:157
+msgid "Error : this domain cannot be used"
+msgstr ""
+
+#: emailPoubelle.php:159
+msgid "Error : Your email can not contain a trash domain"
+msgstr ""
+
+#: emailPoubelle.php:161
+msgid "Error : trash email address forbidden"
+msgstr ""
+
+#: emailPoubelle.php:163
+msgid "Error : you have been blacklisted"
+msgstr ""
+
+#: emailPoubelle.php:167
+msgid "Error : this trash email already exists"
+msgstr ""
+
+#: emailPoubelle.php:169
+msgid ""
+"Error: You have reached your limit quota on this app. You can <a href="
+"\"http://forge.zici.fr/p/emailpoubelle-php/\"> install this script </a> on a "
+"personal server if you want more quota"
+msgstr ""
+
+#: emailPoubelle.php:176
+msgid "Confirmation of the creation of your trash email :"
+msgstr ""
+
+#: emailPoubelle.php:178
+msgid "Click on the link below to validate :"
+msgstr ""
+
+#: emailPoubelle.php:181
+msgid "To delete this trash email, click on the link below :"
+msgstr ""
+
+#: emailPoubelle.php:184
+msgid ""
+"After confirmation, you will be able to temporary suspend you trash email "
+"using the link below :"
+msgstr ""
+
+#: emailPoubelle.php:186
+msgid "Alias confirmation"
+msgstr ""
+
+#: emailPoubelle.php:187
+msgid "Your email address"
+msgstr ""
+
+#: emailPoubelle.php:187
+msgid "is unknown, a confirmation has been sent to you."
+msgstr ""
+
+#: emailPoubelle.php:193
+msgid "Confirmation of the removal of your trash email : "
+msgstr ""
+
+#: emailPoubelle.php:195
+msgid "Click on the link below to validate the deletion :"
+msgstr ""
+
+#: emailPoubelle.php:197
+msgid ""
+"If you would like to temporary suspend this trash email, you can follow the "
+"link bellow :"
+msgstr ""
+
+#: emailPoubelle.php:199
+msgid "Alias deletion"
+msgstr ""
+
+#: emailPoubelle.php:202
+msgid "Error : unknown trash email"
+msgstr ""
+
+#: emailPoubelle.php:230
+msgid "Add"
+msgstr ""
+
+#: emailPoubelle.php:231
+msgid "List"
+msgstr ""
+
+#: emailPoubelle.php:232 emailPoubelle.php:274
+msgid "Delete"
+msgstr ""
+
+#: emailPoubelle.php:233 emailPoubelle.php:275
+msgid "Suspend"
+msgstr ""
+
+#: emailPoubelle.php:234 emailPoubelle.php:276
+msgid "Resume"
+msgstr ""
+
+#: emailPoubelle.php:238
+msgid "Your real email address"
+msgstr ""
+
+#: emailPoubelle.php:241
+msgid "Remember"
+msgstr ""
+
+#: emailPoubelle.php:244
+msgid "Name of your trash email address"
+msgstr ""
+
+#: emailPoubelle.php:245
+msgid "Ex : john_shop"
+msgstr ""
+
+#: emailPoubelle.php:258
+msgid "Unlimited time"
+msgstr ""
+
+#: emailPoubelle.php:259
+msgid "2 hours"
+msgstr ""
+
+#: emailPoubelle.php:260
+msgid "6 hours"
+msgstr ""
+
+#: emailPoubelle.php:261
+msgid "1 day"
+msgstr ""
+
+#: emailPoubelle.php:262
+msgid "7 days"
+msgstr ""
+
+#: emailPoubelle.php:263
+msgid "15 days"
+msgstr ""
+
+#: emailPoubelle.php:264
+msgid "30 days"
+msgstr ""
+
+#: emailPoubelle.php:265
+msgid "90 days"
+msgstr ""
+
+#: emailPoubelle.php:269
+msgid "Comment for this trash email (for your to remember)"
+msgstr ""
+
+#: emailPoubelle.php:270
+msgid "Ex : Inscription sur zici.fr"
+msgstr ""
+
+#: emailPoubelle.php:273
+msgid "Activate"
+msgstr ""
+
+#: emailPoubelle.php:362
+msgid "Version"
+msgstr ""
+
+#: emailPoubelle.php:362
+msgid "Created by David Mercereau under licence GNU GPL v3"
+msgstr ""
+
+#: emailPoubelle.php:363
+msgid "Download and use this script on the project website"
+msgstr ""
+
+#: ep_function.php:93
+msgid "has been deleted with all these aliases"
+msgstr ""
+
+#: ep_function.php:99
+msgid "Erreur"
+msgstr ""
+
+#: ep_function.php:99
+msgid "has not been deleted"
+msgstr ""
+
+#: ep_function.php:120
+msgid "has been deleted"
+msgstr ""
+
+#: ep_function.php:126
+msgid "Error: email trash unknown"
+msgstr ""
+
+#: ep_function.php:145 ep_function.php:173
+msgid "Error: Can not find this trash email"
+msgstr ""
+
+#: ep_function.php:148 ep_function.php:150 ep_function.php:152
+#: ep_function.php:176 ep_function.php:178 ep_function.php:180
+msgid "The reception on"
+msgstr ""
+
+#: ep_function.php:148
+msgid "is active again"
+msgstr ""
+
+#: ep_function.php:150
+msgid "is already active"
+msgstr ""
+
+#: ep_function.php:152
+msgid "has not been confirmed by email"
+msgstr ""
+
+#: ep_function.php:154 ep_function.php:182
+msgid "Error: unknown status"
+msgstr ""
+
+#: ep_function.php:176
+msgid "is now suspended"
+msgstr ""
+
+#: ep_function.php:178
+msgid "is already suspended"
+msgstr ""
+
+#: ep_function.php:180
+msgid "can not be suspended because it has not been activated yet"
+msgstr ""
+
+#: ep_function.php:254
+msgid "List trash email activate"
+msgstr ""
+
+#: ep_function.php:257
+msgid "List trash email disable"
+msgstr ""
+
+#: ep_function.php:259
+msgid "Create "
+msgstr ""
+
+#: ep_function.php:261
+msgid "and expires on"
+msgstr ""
+
+#: ep_function.php:265
+msgid "Comment :"
+msgstr ""
+
+#: ep_function.php:268
+msgid "Disable :"
+msgstr ""
+
+#: ep_function.php:271
+msgid "Activate :"
+msgstr ""
+
+#: ep_function.php:274
+msgid "Delete :"
+msgstr ""
+
+#: ep_function.php:280
+msgid "List trash email"
+msgstr ""
