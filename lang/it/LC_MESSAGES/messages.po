@@ -12,131 +12,140 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: emailPoubelleAdmin.php:27
 msgid "Error: Incorrect password"
-msgstr ""
+msgstr "Errore : Password è errata"
 
 #: emailPoubelleAdmin.php:75
 msgid "Statistics"
-msgstr ""
+msgstr "Statistica"
 
 #: emailPoubelleAdmin.php:77
 msgid "Total alias"
-msgstr ""
+msgstr "Alias Total"
 
 #: emailPoubelleAdmin.php:78
 msgid "Active alias"
-msgstr ""
+msgstr "Alias attivi"
 
 #: emailPoubelleAdmin.php:79
 msgid "Alias suspended"
-msgstr ""
+msgstr "Alias Sospesi"
 
 #: emailPoubelleAdmin.php:80
 msgid "Alias not verified"
-msgstr ""
+msgstr "Alias non verificati"
 
 #: emailPoubelleAdmin.php:86
 msgid "User email"
-msgstr ""
+msgstr "Email dell'utente"
 
 #: emailPoubelle.php:22
 msgid "Debug enabled"
-msgstr ""
+msgstr "Debug abilitato"
 
 #: emailPoubelle.php:28
 msgid ""
 "Error : the configuration file conf.php might not be included because the "
 "constants are not declared"
 msgstr ""
+"Errore : Il file di configurazione conf.php forse non è incluso "
+" perché i constanti non sono dichiarate"
 
 #: emailPoubelle.php:31
 msgid ""
 "Error : the working directory cannot be written. Please contact the admin"
 msgstr ""
+"Errore : il directory corrente non puo essere modificato. "
+"Contatta l'amministratore per favore."
 
 #: emailPoubelle.php:34
 msgid "Error : the alias file cannot be written. Please contact the admin"
-msgstr ""
+msgstr "Errore : il alias file non puo essere modificato. "
+"Contatta l'amministratore per favore."
 
 #: emailPoubelle.php:37
 msgid "Error : the blacklist file cannot be read. Please contact the admin"
-msgstr ""
+msgstr "Errore : il file della lista nera non puo essere modificato. "
+"Contatta l'amministratore per favore."
 
 #: emailPoubelle.php:40
 msgid ""
 "Error : the forbidden aliases file cannot be read. Please contact the admin"
 msgstr ""
+"Errore : Il proibito alias file non puo essere modificato."
+"Contatta l'amministratore per favore."
 
 #: emailPoubelle.php:43 emailPoubelle.php:47
 msgid "Service under maintenance"
-msgstr ""
+msgstr "Servizio in manutenzione"
 
 #: emailPoubelle.php:85
 msgid "Error initializing tables. Please contact the admin"
-msgstr ""
+msgstr "Errore per inizializzare le tabelle. Per favore contatta "
+"l'amministratore"
 
 #: emailPoubelle.php:102 emailPoubelle.php:173
 msgid "Your trash email address"
-msgstr ""
+msgstr "Il tuo email rifiuti indirizzo"
 
 #: emailPoubelle.php:102 emailPoubelle.php:173
 msgid "is now enabled"
-msgstr ""
+msgstr "è adesso attivo"
 
 #: emailPoubelle.php:104
 msgid "Error : unknown ID or already validated"
-msgstr ""
+msgstr "Errore : ID non è conosciuto o già validato"
 
 #: emailPoubelle.php:121
 msgid "The scheduled task is running"
-msgstr ""
+msgstr "L'attività pianificate è in esecuzione "
 
 #: emailPoubelle.php:124
 msgid "You didn't allow the scheduled job"
-msgstr ""
+msgstr "L'attività pianificate non è autorizata"
 
 #: emailPoubelle.php:134 emailPoubelle.php:136 emailPoubelle.php:151
 #: emailPoubelle.php:153
 msgid "Error : email address incorrect"
-msgstr ""
+msgstr "Errore : Indirizzo email errato"
 
 #: emailPoubelle.php:138 emailPoubelle.php:200
 msgid "An email has been sent to you"
-msgstr ""
+msgstr "Ti è stata inviata un'email"
 
 #: emailPoubelle.php:140
 msgid "Error : no known active trash email"
-msgstr ""
+msgstr "Errore : Nessun'email rifiuti attiva conosciuta"
 
 #: emailPoubelle.php:155
 msgid "Error : trash email address syntax incorrect"
-msgstr ""
+msgstr "Errore : La sintassi dell'indorizzo email rifiuti è errata"
 
 #: emailPoubelle.php:157
 msgid "Error : this domain cannot be used"
-msgstr ""
+msgstr "Errore : Il dominio non puo essere utilizzato"
 
 #: emailPoubelle.php:159
 msgid "Error : Your email can not contain a trash domain"
-msgstr ""
+msgstr "Errore : La tua email non puo contenare un dominio rifiuti"
 
 #: emailPoubelle.php:161
 msgid "Error : trash email address forbidden"
-msgstr ""
+msgstr "Errore : Indirizzo email rifiuti vietato"
 
 #: emailPoubelle.php:163
 msgid "Error : you have been blacklisted"
-msgstr ""
+msgstr "Errore : Sei stato nella lista nera"
 
 #: emailPoubelle.php:167
 msgid "Error : this trash email already exists"
-msgstr ""
+msgstr "Errore : Questo email rifiuti esista già"
 
 #: emailPoubelle.php:169
 msgid ""
@@ -144,240 +153,247 @@ msgid ""
 "\"http://forge.zici.fr/p/emailpoubelle-php/\"> install this script </a> on a "
 "personal server if you want more quota"
 msgstr ""
+"Errore : Hai raggiunto la tua limite su questa app. Puoi <a href="
+"\"http://forge.zici.fr/p/emailpoubelle-php/\"> installare questo script </a> "
+"su un server personale se vuoi più quota"
 
 #: emailPoubelle.php:176
 msgid "Confirmation of the creation of your trash email :"
-msgstr ""
+msgstr "Confirmazione della creazione della tua email rifiuti"
 
 #: emailPoubelle.php:178
 msgid "Click on the link below to validate :"
-msgstr ""
+msgstr "Clicca sul link sottostante per confermare"
 
 #: emailPoubelle.php:181
 msgid "To delete this trash email, click on the link below :"
-msgstr ""
+msgstr "per sopprimere questa email rifiuti, clicca sul link sottostante"
 
 #: emailPoubelle.php:184
 msgid ""
 "After confirmation, you will be able to temporary suspend you trash email "
 "using the link below :"
 msgstr ""
+"Doppo confermazione, sara possibile di temporanea sospendere la tua email"
+"rifiuti con il link sottostante"
 
 #: emailPoubelle.php:186
 msgid "Alias confirmation"
-msgstr ""
+msgstr "Alias confermazione"
 
 #: emailPoubelle.php:187
 msgid "Your email address"
-msgstr ""
+msgstr "Il tuo indirizzo email"
 
 #: emailPoubelle.php:187
 msgid "is unknown, a confirmation has been sent to you."
-msgstr ""
+msgstr "non è conosciuto, una confermazione richiesta ti es stata inviata"
 
 #: emailPoubelle.php:193
 msgid "Confirmation of the removal of your trash email : "
-msgstr ""
+msgstr "Confermazione per la soppressione della tua email rifiuti"
 
 #: emailPoubelle.php:195
 msgid "Click on the link below to validate the deletion :"
-msgstr ""
+msgstr "Clicca sul link sottostante per confermare la soppressione"
 
 #: emailPoubelle.php:197
 msgid ""
 "If you would like to temporary suspend this trash email, you can follow the "
 "link bellow :"
 msgstr ""
+"Se vuoi temporeano sospendere la tua email rifiuti, clicca sul link "
+"sottostante"
 
 #: emailPoubelle.php:199
 msgid "Alias deletion"
-msgstr ""
+msgstr "Alias cancellatura"
 
 #: emailPoubelle.php:202
 msgid "Error : unknown trash email"
-msgstr ""
+msgstr "Errore : Email rifiuti non è conosciuta"
 
 #: emailPoubelle.php:230
 msgid "Add"
-msgstr ""
+msgstr "Aggiungere"
 
 #: emailPoubelle.php:231
 msgid "List"
-msgstr ""
+msgstr "Listare"
 
 #: emailPoubelle.php:232 emailPoubelle.php:274
 msgid "Delete"
-msgstr ""
+msgstr "Sopprimere"
 
 #: emailPoubelle.php:233 emailPoubelle.php:275
 msgid "Suspend"
-msgstr ""
+msgstr "Sospendere"
 
 #: emailPoubelle.php:234 emailPoubelle.php:276
 msgid "Resume"
-msgstr ""
+msgstr "Riprendere"
 
 #: emailPoubelle.php:238
 msgid "Your real email address"
-msgstr ""
+msgstr "Il tuo vero email indirizzo"
 
 #: emailPoubelle.php:241
 msgid "Remember"
-msgstr ""
+msgstr "Ricordarsi"
 
 #: emailPoubelle.php:244
 msgid "Name of your trash email address"
-msgstr ""
+msgstr "Il nome dello tuo email rifiuti indirizzo"
 
 #: emailPoubelle.php:245
 msgid "Ex : john_shop"
-msgstr ""
+msgstr "Ex : john_shop"
 
 #: emailPoubelle.php:258
 msgid "Unlimited time"
-msgstr ""
+msgstr "Tempo illimitato"
 
 #: emailPoubelle.php:259
 msgid "2 hours"
-msgstr ""
+msgstr "2 ore"
 
 #: emailPoubelle.php:260
 msgid "6 hours"
-msgstr ""
+msgstr "6 ore"
 
 #: emailPoubelle.php:261
 msgid "1 day"
-msgstr ""
+msgstr "1 giorno"
 
 #: emailPoubelle.php:262
 msgid "7 days"
-msgstr ""
+msgstr "7 giorni"
 
 #: emailPoubelle.php:263
 msgid "15 days"
-msgstr ""
+msgstr "15 giorni"
 
 #: emailPoubelle.php:264
 msgid "30 days"
-msgstr ""
+msgstr "30 giorni"
 
 #: emailPoubelle.php:265
 msgid "90 days"
-msgstr ""
+msgstr "90 giorni"
 
 #: emailPoubelle.php:269
 msgid "Comment for this trash email (for your to remember)"
-msgstr ""
+msgstr "Commento su questa email rifiuti (per ricordarti)"
 
 #: emailPoubelle.php:270
 msgid "Ex : Inscription sur zici.fr"
-msgstr ""
+msgstr "Ex: Iscrizione su zici.fr"
 
 #: emailPoubelle.php:273
 msgid "Activate"
-msgstr ""
+msgstr "Attivare"
 
 #: emailPoubelle.php:362
 msgid "Version"
-msgstr ""
+msgstr "Versione"
 
 #: emailPoubelle.php:362
 msgid "Created by David Mercereau under licence GNU GPL v3"
-msgstr ""
+msgstr "Creato da David Mercereau sotto la licenza GNU GPL v3"
 
 #: emailPoubelle.php:363
 msgid "Download and use this script on the project website"
-msgstr ""
+msgstr "Scarica é utiliza questo script sul website del projetto"
 
 #: ep_function.php:93
 msgid "has been deleted with all these aliases"
-msgstr ""
+msgstr "e stato cancellato con tutti i alias"
 
 #: ep_function.php:99
 msgid "Erreur"
-msgstr ""
+msgstr "Errore"
 
 #: ep_function.php:99
 msgid "has not been deleted"
-msgstr ""
+msgstr "non e stato cancellato"
 
 #: ep_function.php:120
 msgid "has been deleted"
-msgstr ""
+msgstr "e stato cancellato"
 
 #: ep_function.php:126
 msgid "Error: email trash unknown"
-msgstr ""
+msgstr "Errore : Email rifiuti non è conosciuta"
 
 #: ep_function.php:145 ep_function.php:173
 msgid "Error: Can not find this trash email"
-msgstr ""
+msgstr "Errore : Questa email rifiuti non è stata trovata"
 
 #: ep_function.php:148 ep_function.php:150 ep_function.php:152
 #: ep_function.php:176 ep_function.php:178 ep_function.php:180
 msgid "The reception on"
-msgstr ""
+msgstr "La ricezione su"
 
 #: ep_function.php:148
 msgid "is active again"
-msgstr ""
+msgstr "è riattivata"
 
 #: ep_function.php:150
 msgid "is already active"
-msgstr ""
+msgstr "è gia attivata"
 
 #: ep_function.php:152
 msgid "has not been confirmed by email"
-msgstr ""
+msgstr "non è stata confermata da email"
 
 #: ep_function.php:154 ep_function.php:182
 msgid "Error: unknown status"
-msgstr ""
+msgstr "Errore : Stato sconosciuto"
 
 #: ep_function.php:176
 msgid "is now suspended"
-msgstr ""
+msgstr "è addesso sospesa"
 
 #: ep_function.php:178
 msgid "is already suspended"
-msgstr ""
+msgstr "è gia sospesa"
 
 #: ep_function.php:180
 msgid "can not be suspended because it has not been activated yet"
-msgstr ""
+msgstr "non puo essere sospesa perchè non è stata ancora attivata"
 
 #: ep_function.php:254
 msgid "List trash email activate"
-msgstr ""
+msgstr "La lista di email rifiuti è attivata"
 
 #: ep_function.php:257
 msgid "List trash email disable"
-msgstr ""
+msgstr "La lista di email rifiuti è disattivata"
 
 #: ep_function.php:259
 msgid "Create "
-msgstr ""
+msgstr "Creare"
 
 #: ep_function.php:261
 msgid "and expires on"
-msgstr ""
+msgstr "e scade alle"
 
 #: ep_function.php:265
 msgid "Comment :"
-msgstr ""
+msgstr "Commento :"
 
 #: ep_function.php:268
 msgid "Disable :"
-msgstr ""
+msgstr "Disattivare :"
 
 #: ep_function.php:271
 msgid "Activate :"
-msgstr ""
+msgstr "Attivare :"
 
 #: ep_function.php:274
 msgid "Delete :"
-msgstr ""
+msgstr "Cancellare :"
 
 #: ep_function.php:280
 msgid "List trash email"
-msgstr ""
+msgstr "Listare email rifiuti"
