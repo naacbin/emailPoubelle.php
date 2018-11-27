@@ -79,7 +79,10 @@ function AjouterAlias($status, $alias,$email, $life, $comment) {
 		die();
 	}
 	UpdateVirtualDB();
-	return $dbco->lastInsertId();
+//      return $dbco->lastInsertId();
+        $stmt = $dbco->query("SELECT LAST_INSERT_ID()");
+        return $stmt->fetchColumn();
+
 }
 
 // delete email
