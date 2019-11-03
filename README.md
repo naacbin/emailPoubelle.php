@@ -4,9 +4,8 @@ emailPoubelle.php
 Un script pour un petit service d'email jetable
 
 * [Démo](http://poubelle.zici.fr/)
-* [Page du projet](http://forge.zici.fr/p/emailpoubelle-php/)
-* [Download](http://forge.zici.fr/p/emailpoubelle-php/source/download/master/)
-* [Bug report](http://forge.zici.fr/p/emailpoubelle-php/issues/)
+* [Page du projet](https://forge.zici.fr/project/view/6/)
+* [Download/source](https://forge.zici.fr/source/emailpoubelle.php/)
 
 Installation
 -----------
