@@ -368,6 +368,6 @@ if (!CRON) { LifeExpire(); }
 	// Close connexion DB
 	$dbco = null;
 	// checkupdate
-	echo CheckUpdate(); 
+	// echo CheckUpdate(); 
 } // end maintenance mod
 ?>
